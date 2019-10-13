@@ -15,7 +15,7 @@
         <link rel='stylesheet' type='text/css' href='{{ absolute_url(asset('ressources/assets/css/atmos.min.css'))}}'/>
         <link rel="stylesheet" href="{{ absolute_url(asset('ressources/vendor/fontawesome/css/all.min.css')) }}">
     {% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('ressources/img/favico.ico')) }}"/>
+    <link rel="icon" type="image/x-icon" href="{{ absolute_url(asset('ressources/img/favicon.ico')) }}"/>
     <link rel="icon" href="{{ absolute_url(asset('ressources/img/favico.ico')) }}" type="image/png" sizes="16x16">
 </head>
 <body class="sidebar-pinned ">
@@ -125,7 +125,7 @@
                     <!--submenu-->
                     <ul class="sub-menu">
                         <li class="menu-item">
-                            <a href='fournisseur.html' class=' menu-link'>
+                            <a href="{{ absolute_url(path('admin_region_index')) }}" class=' menu-link'>
                             <span class="menu-label">
                                 <span class="menu-name">Region</span>
                             </span>
@@ -133,7 +133,7 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href='fournisseur.html' class=' menu-link'>
+                            <a href="{{ absolute_url(path('admin_district_index')) }}" class=' menu-link'>
                             <span class="menu-label">
                                 <span class="menu-name">District</span>
                             </span>
@@ -141,7 +141,7 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href='{{ absolute_url(path('admin_user_index')) }}' class=' menu-link'>
+                            <a href='{{ absolute_url(path('admin_groupe_index')) }}' class=' menu-link'>
                             <span class="menu-label">
                                 <span class="menu-name">Groupe</span>
                             </span>
@@ -149,7 +149,7 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href='{{ absolute_url(path('admin_user_index')) }}' class=' menu-link'>
+                            <a href='{{ absolute_url(path('admin_branche_index')) }}' class=' menu-link'>
                             <span class="menu-label">
                                 <span class="menu-name">Branche</span>
                             </span>
@@ -157,11 +157,11 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href='{{ absolute_url(path('admin_user_index')) }}' class=' menu-link'>
+                            <a href='{{ absolute_url(path('admin_statut_index')) }}' class=' menu-link'>
                             <span class="menu-label">
                                 <span class="menu-name">Statut</span>
                             </span>
-                                <span class="menu-icon"><i class="icon-placeholder fa fa-user-friends"></i></span>
+                                <span class="menu-icon"><i class="icon-placeholder fa fa-file"></i></span>
                             </a>
                         </li>
                     </ul>
