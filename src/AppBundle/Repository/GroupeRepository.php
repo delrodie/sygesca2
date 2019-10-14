@@ -10,4 +10,8 @@ namespace AppBundle\Repository;
  */
 class GroupeRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function liste()
+    {
+        return $this->createQueryBuilder('g')->orderBy('g.paroisse', 'ASC');
+    }
 }

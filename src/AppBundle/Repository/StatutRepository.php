@@ -10,4 +10,8 @@ namespace AppBundle\Repository;
  */
 class StatutRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function liste()
+    {
+        return $this->createQueryBuilder('s')->orderBy('s.libelle', 'DESC');
+    }
 }
