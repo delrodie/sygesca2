@@ -51,7 +51,7 @@ class ScoutController extends Controller
             $em->persist($scout);
             $em->flush();
 
-            return $this->redirectToRoute('admin_scout_show', array('slug' => $scout->getSlug()));
+            return $this->redirectToRoute('scout_inscription', array('scout' => $scout));
         }
 
         return $this->render('scout/new.html.twig', array(

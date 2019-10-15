@@ -1,0 +1,78 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title></title>
+	<style>
+		td {
+			width:25px;
+			height:25px;
+		}
+
+	</style>
+</head>
+<body>
+<table id="test" border="1">
+	<thead>
+	<th>test1</th>
+	<th>test2</th>
+	<th>test3</th>
+	<th>test4</th>
+	<th id="plus">+</th>
+	<th id="moins">-</th>
+	</thead>
+	<tbody id="tbody">
+
+	</tbody>
+</table>
+<button type="submit" onclick="AjouterPhoto();">Ajouter</button>
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+
+<script>
+    $( document ).ready(function(i) {
+        var i=0;
+        $("#plus").click(function(){
+
+            i++;
+            $("#test #tbody").append('<tr class="trinfo" id="'+i+'"><td ><input id="nom'+i+'" type="text" placeholder="nom"></td><td ><input type="text" id="prenom'+i+'" placeholder="prenom"></td><td colspan="2"><input id="age'+i+'" type="text" placeholder="age"></td><td colspan="2"><input type="text" id="sexe'+i+'" placeholder="sexe"></td>');
+
+        });
+
+        $("#moins").click(function(){
+            $("tr:last").remove();
+            if (i>=0) {
+                i--;}
+        });
+
+
+    })
+
+    function AjouterPhoto() {
+        // la tu detecte ton dernier id mais tu sais aussi qu'il pars tjrs de 1 donc...
+        var j = $('.trinfo').last().attr('id');
+        var data={};
+        for(var k=1;k<=j;k++) {
+            data['nom'+k]= $('#nom'+k).val(),
+                data['prenom'+k]=$('#prenom'+k).val(),
+                data['age'+k]=$('#age'+k).val(),
+                data['sexe'+k]=$('#sexe'+k).val()
+            data['k']= k;
+        }
+        console.log(data);
+
+
+        $.ajax({
+            type: "POST",
+            url: "{{path('scout_inscription')}}",
+            data: data,
+            success: function($data) {
+                console.log("valide");
+            }
+        });
+
+    }
+
+</script>
+</body>
+</html>
