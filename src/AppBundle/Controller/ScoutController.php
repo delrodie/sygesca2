@@ -50,6 +50,13 @@ class ScoutController extends Controller
             $matricule = $gestionScout->matricule($scout->getGroupe());
             $scout->setMatricule($matricule);
             $scout->setCotisation($gestionScout->cotisation());
+
+            // Verification de l'existence du scout dans le système pour cette année scoute
+            $existe = $gestionScout->verifExistence($scout->getNom(),$scout->getPrenoms(),$scout->getDatenaiss(),$scout->getLieunaiss());
+            if ($existe){
+                return $this->redirectToRoute('admin_scout_index');
+            }
+
             $em->persist($scout);
             $em->flush();
 

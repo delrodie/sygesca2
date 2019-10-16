@@ -28,7 +28,7 @@ class GestionCotisation
 
         // Si le scout est un jeune alors affecté la branche à la fonction
         $statut = $scout->getStatut()->getLibelle();
-        if ($statut === 'Jeune'){
+        if ($statut == 'Jeune'){
             $cotisation->setFonction($scout->getBranche());
         }else{
             $cotisation->setFonction($scout->getFonction());

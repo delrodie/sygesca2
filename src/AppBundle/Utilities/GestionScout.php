@@ -111,4 +111,18 @@ class GestionScout
         return true;
 
     }
+
+    /**
+     * Verification d'existence du scout pour l'année encours
+     */
+    public function verifExistence($nom,$prenoms,$datenaiss,$lieunaiss)
+    {
+        $annee = $this->cotisation();
+        $scout = $this->em->getRepository("AppBundle:Scout")->findBy(['nom'=>$nom, 'prenoms'=>$prenoms, 'datenaiss'=>$datenaiss, 'lieunaiss'=>$lieunaiss, 'cotisation'=>$annee]);
+        if ($scout){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

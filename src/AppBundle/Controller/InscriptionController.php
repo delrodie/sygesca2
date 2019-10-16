@@ -74,6 +74,12 @@ class InscriptionController extends Controller
                 $scout->setFonction($fonction);
                 $scout->setGroupe($paroisse);
 
+                // Verification de l'existence du scout dans le système pour cette année scoute
+                $existe = $gestionScout->verifExistence($nom,$prenom,$date,$lieu);
+                if ($existe){
+                    return $this->redirectToRoute('admin_scout_index');
+                }
+
                 $em->persist($scout);
                 $em->flush();
 

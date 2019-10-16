@@ -29,8 +29,11 @@ class RechercheController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         if ($request->getMethod() == 'POST'){
-            $matricule = $request->get('matricule');
-            $scout = $em->getRepository("AppBundle:Scout")->findOneBy(['matricule'=>$matricule]);
+            $nom = $request->get('nom');
+            $datenaissance = $request->get('datenaiss');
+
+            //$matricule = $request->get('matricule');
+            $scout = $em->getRepository("AppBundle:Scout")->findOneBy(['nom'=>$nom, 'datenaiss'=>$datenaissance]);
 
             if (!$scout){
                 return $this->render("default/404.html.twig");

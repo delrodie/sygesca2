@@ -21,32 +21,40 @@
 <body class="sidebar-pinned ">
 <main class="admin-main  bg-pattern">
 	<div class="container">
-		<div class="row m-h-100 ">
+		<div class="row m-h-70">
 			<div class="col-md-8 col-lg-4  m-auto">
 				<div class="card shadow-lg p-t-20 p-b-20">
 					<div class="card-body text-center">
 						<img width="100" alt="image" src="{{ asset('ressources/img/logo.png') }}">
 						<h1 class="display-1 fw-600 font-secondary"></h1>
-						<h5>Entrez votre matricule</h5>
+						<h5 class="text-left">Editer votre carte provisoire</h5>
 						<p class="opacity-75">
 						<form action="{{ path('recherche_carte') }}" method="POST">
 							<div class="row">
-								<div class="col-sm-9">
-									<input type="text" name="matricule" class="form-control" placeholder="Entrez votre matricule" autocomplete="off">
+								<div class="form-group col-sm-12 text-left">
+									<label for="nom">Nom de famille</label>
+									<input type="text" name="nom" class="form-control" placeholder="Entrez votre nom de famille" autocomplete="off" required>
 								</div>
-								<div class="col-sm-3">
-									<button type="submit" class="btn btn-primary">Valider</button>
+								<div class="form-group col-sm-12 text-left">
+									<label for="datenaiss">Date de naissance</label>
+									<input type="date" name="datenaiss" class="form-control" placeholder="Entrez votre date de naissance" autocomplete="off" required>
+								</div>
+								<div class="text-center">
+									<a href="http://ascci.cinetpay.com" class='btn btn-lg btn-danger'>S'inscrire</a>
+									<button type="submit" class="btn btn-lg btn-primary">Envoyer</button>
 								</div>
 							</div>
 						</form>
 						</p>
-						<div class="p-t-10">
-							<a href="http://ascci.cinetpay.com" class='btn btn-lg btn-danger'>S'inscrire</a>
+						<div class="p-t-10 text-left">
 						</div>
 
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="row m-h-20">
+			.
 		</div>
 	</div>
 </main>
