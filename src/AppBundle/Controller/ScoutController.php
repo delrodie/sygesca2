@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Scout;
+use AppBundle\Utilities\GestionCotisation;
 use AppBundle\Utilities\GestionScout;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -38,7 +39,7 @@ class ScoutController extends Controller
      * @Route("/new", name="admin_scout_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, GestionScout $gestionScout)
+    public function newAction(Request $request, GestionScout $gestionScout, GestionCotisation $gestionCotisation)
     {
         $scout = new Scout();
         $form = $this->createForm('AppBundle\Form\ScoutType', $scout);
@@ -53,6 +54,7 @@ class ScoutController extends Controller
             $em->flush();
 
             $gestionScout->carte($scout->getId());
+            $gestionCotisation->save($scout->getId());
 
             return $this->redirectToRoute('scout_inscription', [
                 'nom' => $scout->getNom(),

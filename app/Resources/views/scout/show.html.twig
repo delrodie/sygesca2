@@ -85,6 +85,33 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card m-b-30">
+                        <div class="card-header">
+                            <h6>Historique </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive p-t-10">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Année</th>
+                                        <th>Carte</th>
+                                        <th>Fonction</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for cotisation in scout.cotisations %}
+                                        <tr>
+                                            <td>{{ cotisation.annee }}</td>
+                                            <td>{{ cotisation.carte }}</td>
+                                            <td>{{ cotisation.fonction }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

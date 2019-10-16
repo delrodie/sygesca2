@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Scout;
+use AppBundle\Utilities\GestionCotisation;
 use AppBundle\Utilities\GestionScout;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -30,7 +31,7 @@ class InscriptionController extends Controller
      * @Route("/inscription/", name="scout_inscription")
      * @Method({"GET","POST"})
      */
-    public function inscriptionAction(Request $request, GestionScout $gestionScout)
+    public function inscriptionAction(Request $request, GestionScout $gestionScout, GestionCotisation $gestionCotisation)
     {
         $em = $this->getDoctrine()->getManager();
         if ($request->getMethod() == 'POST'){
@@ -77,6 +78,7 @@ class InscriptionController extends Controller
                 $em->flush();
 
                 $gestionScout->carte($scout->getId());
+                $gestionCotisation->save($scout->getId());
             }
         }
         return $this->redirectToRoute('admin_scout_index');

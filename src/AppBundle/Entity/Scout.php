@@ -165,6 +165,11 @@ class Scout
      */
     private $groupe;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Cotisation", mappedBy="scout")
+     */
+    private $cotisations;
+
 
     /**
      * Get id
@@ -654,5 +659,46 @@ class Scout
     public function getCarte()
     {
         return $this->carte;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cotisations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add cotisation
+     *
+     * @param \AppBundle\Entity\Cotisation $cotisation
+     *
+     * @return Scout
+     */
+    public function addCotisation(\AppBundle\Entity\Cotisation $cotisation)
+    {
+        $this->cotisations[] = $cotisation;
+
+        return $this;
+    }
+
+    /**
+     * Remove cotisation
+     *
+     * @param \AppBundle\Entity\Cotisation $cotisation
+     */
+    public function removeCotisation(\AppBundle\Entity\Cotisation $cotisation)
+    {
+        $this->cotisations->removeElement($cotisation);
+    }
+
+    /**
+     * Get cotisations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCotisations()
+    {
+        return $this->cotisations;
     }
 }

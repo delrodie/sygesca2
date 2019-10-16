@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Cotisation</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ cotisation.id }}</td>
+            </tr>
+            <tr>
+                <th>Annee</th>
+                <td>{{ cotisation.annee }}</td>
+            </tr>
+            <tr>
+                <th>Fonction</th>
+                <td>{{ cotisation.fonction }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_cotisation_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

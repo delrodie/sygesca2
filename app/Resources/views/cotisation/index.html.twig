@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Cotisations list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Annee</th>
+                <th>Fonction</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cotisation in cotisations %}
+            <tr>
+                <td><a href="{{ path('admin_cotisation_show', { 'id': cotisation.id }) }}">{{ cotisation.id }}</a></td>
+                <td>{{ cotisation.annee }}</td>
+                <td>{{ cotisation.fonction }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_cotisation_show', { 'id': cotisation.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}
