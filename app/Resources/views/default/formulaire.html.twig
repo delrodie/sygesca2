@@ -13,10 +13,18 @@
 <body>
 <table id="test" border="1">
 	<thead>
-	<th>test1</th>
-	<th>test2</th>
-	<th>test3</th>
-	<th>test4</th>
+	<th>groupe</th>
+	<th>Statut</th>
+	<th>nom</th>
+	<th>prenoms</th>
+	<th>date</th>
+	<th>lieu</th>
+	<th>tel</th>
+	<th>parent</th>
+	<th>email</th>
+	<th>sexe</th>
+	<th>branche</th>
+	<th>fonction</th>
 	<th id="plus">+</th>
 	<th id="moins">-</th>
 	</thead>
@@ -35,7 +43,22 @@
         $("#plus").click(function(){
 
             i++;
-            $("#test #tbody").append('<tr class="trinfo" id="'+i+'"><td ><input id="nom'+i+'" type="text" placeholder="nom"></td><td ><input type="text" id="prenom'+i+'" placeholder="prenom"></td><td colspan="2"><input id="age'+i+'" type="text" placeholder="age"></td><td colspan="2"><input type="text" id="sexe'+i+'" placeholder="sexe"></td>');
+            $("#test #tbody")
+				.append('' +
+					'<tr class="trinfo" id="'+i+'">' +
+					'<td ><input id="groupe'+i+'" type="text" placeholder="region"></td>' +
+					'<td ><input id="statut'+i+'" type="text" placeholder="Satut"></td>' +
+					'<td ><input id="nom'+i+'" type="text" placeholder="nom"></td>' +
+					'<td ><input type="text" id="prenom'+i+'" placeholder="prenom"></td>' +
+					'<td ><input type="text" id="datenaiss'+i+'" placeholder="date"></td>' +
+					'<td ><input type="text" id="lieunaiss'+i+'" placeholder="lieu"></td>' +
+					'<td ><input type="text" id="contact'+i+'" placeholder="contact"></td>' +
+					'<td ><input type="text" id="parent'+i+'" placeholder="parent"></td>' +
+					'<td ><input type="text" id="email'+i+'" placeholder="email"></td>' +
+					'<td ><input type="text" id="sexe'+i+'" placeholder="sexe"></td>' +
+					'<td ><input type="text" id="branche'+i+'" placeholder="branche"></td>' +
+					'<td ><input type="text" id="fonction'+i+'" placeholder="fonction"></td>' +
+					'');
 
         });
 
@@ -57,6 +80,15 @@
                 data['prenom'+k]=$('#prenom'+k).val(),
                 data['age'+k]=$('#age'+k).val(),
                 data['sexe'+k]=$('#sexe'+k).val()
+                data['groupe'+k]=$('#groupe'+k).val()
+                data['statut'+k]=$('#statut'+k).val()
+                data['date'+k]=$('#datenaiss'+k).val()
+                data['lieu'+k]=$('#lieunaiss'+k).val()
+                data['contact'+k]=$('#contact'+k).val()
+                data['parent'+k]=$('#parent'+k).val()
+                data['email'+k]=$('#email'+k).val()
+                data['branche'+k]=$('#branche'+k).val()
+                data['fonction'+k]=$('#fonction'+k).val()
             data['k']= k;
         }
         console.log(data);

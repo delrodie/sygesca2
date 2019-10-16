@@ -21,7 +21,7 @@ class ScoutController extends Controller
      * @Route("/", name="admin_scout_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(GestionScout $gestionScout)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -48,10 +48,16 @@ class ScoutController extends Controller
             $em = $this->getDoctrine()->getManager();
             $matricule = $gestionScout->matricule($scout->getGroupe());
             $scout->setMatricule($matricule);
+            $scout->setCotisation($gestionScout->cotisation());
             $em->persist($scout);
             $em->flush();
 
-            return $this->redirectToRoute('scout_inscription', array('scout' => $scout));
+            $gestionScout->carte($scout->getId());
+
+            return $this->redirectToRoute('scout_inscription', [
+                'nom' => $scout->getNom(),
+                'prenoms'=>$scout->getPrenoms()
+            ]);
         }
 
         return $this->render('scout/new.html.twig', array(
@@ -91,7 +97,8 @@ class ScoutController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_scout_edit', array('id' => $scout->getId()));
+            return $this->redirectToRoute('admin_scout_index');
+
         }
 
         return $this->render('scout/edit.html.twig', array(

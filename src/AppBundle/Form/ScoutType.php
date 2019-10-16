@@ -29,12 +29,12 @@ class ScoutType extends AbstractType
                 'choices' => ['Masculin'=>'M', 'Feminin'=>'F']
             ])
             ->add('branche', ChoiceType::class,['attr'=>['class'=>'form-control', 'placeholder'=>"La branche du scout", 'autocomplete'=>"off"],
-                'choices'=>['Meute'=>'Meute', 'Troupe'=>'Troupe', 'Generation'=>'Generation', 'Communaute'=>'Communaute']
+                'choices'=>['-- Selectionnez la branche --'=>'','Meute'=>'Meute', 'Troupe'=>'Troupe', 'Generation'=>'Generation', 'Communaute'=>'Communaute'], 'required'=>false
             ])
-            ->add('fonction', TextType::class,['attr'=>['class'=>'form-control', 'placeholder'=>"La fonction encours", 'autocomplete'=>"off"]])
+            ->add('fonction', TextType::class,['attr'=>['class'=>'form-control', 'placeholder'=>"La fonction encours", 'autocomplete'=>"off"], 'required'=>false])
             ->add('contact', TextType::class,['attr'=>['class'=>'form-control', 'placeholder'=>"Le contact telephonique", 'autocomplete'=>"off"]])
             ->add('contactParent', TextType::class,['attr'=>['class'=>'form-control', 'placeholder'=>"Le contact de la personne a contacter en cas d'urgance", 'autocomplete'=>"off"]])
-            ->add('email', EmailType::class,['attr'=>['class'=>'form-control', 'placeholder'=>"L'adresse email", 'autocomplete'=>"off"]])
+            ->add('email', EmailType::class,['attr'=>['class'=>'form-control', 'placeholder'=>"L'adresse email", 'autocomplete'=>"off"], 'required'=>false])
             //->add('cotisation')
             //->add('slug')->add('publiePar')->add('modifiePar')->add('publieLe')->add('modifieLe')
             ->add('statut', EntityType::class,[

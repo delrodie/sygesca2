@@ -79,6 +79,7 @@
                                 {% endif %}
                             </div>
                             <div class="form-group text-right">
+                                <a href="{{ path('scout_carte', {'matricule': scout.matricule}) }}" class="btn btn-success">Carte</a>
 								<a href="{{ path('admin_scout_index')}}" class="btn btn-secondary">Liste</a>
 								<a href="{{ path('admin_scout_edit', {'slug': scout.slug}) }}" class="btn btn-primary">Modifier</a>
                             </div>

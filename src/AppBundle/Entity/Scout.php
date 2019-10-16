@@ -102,6 +102,13 @@ class Scout
     /**
      * @var string
      *
+     * @ORM\Column(name="carte", type="string", length=255, nullable=true)
+     */
+    private $carte;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="cotisation", type="string", length=255, nullable=true)
      */
     private $cotisation;
@@ -623,5 +630,29 @@ class Scout
     public function getGroupe()
     {
         return $this->groupe;
+    }
+
+    /**
+     * Set carte
+     *
+     * @param string $carte
+     *
+     * @return Scout
+     */
+    public function setCarte($carte)
+    {
+        $this->carte = $carte;
+
+        return $this;
+    }
+
+    /**
+     * Get carte
+     *
+     * @return string
+     */
+    public function getCarte()
+    {
+        return $this->carte;
     }
 }

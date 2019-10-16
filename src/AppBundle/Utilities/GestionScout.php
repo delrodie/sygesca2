@@ -4,6 +4,7 @@
 namespace AppBundle\Utilities;
 
 
+use Cassandra\Date;
 use Doctrine\ORM\EntityManager;
 
 class GestionScout
@@ -52,5 +53,62 @@ class GestionScout
         $lettre_aleatoire=$alphabet[rand(0,25)];
 
         return $lettre_aleatoire;
+    }
+
+    /**
+     * Année de cotisation du scout
+     */
+    public function cotisation()
+    {
+        $mois_encours = Date('m', time());
+        if ($mois_encours > 9){
+            $debut_annee = Date('Y', time());
+            $fin_annee = Date('Y', time())+1;
+            //$an = Date('y', time())+1;
+        }else{
+            $debut_annee = Date('Y', time())-1;
+            $fin_annee = Date('Y', time());
+            //$an = Date('y', time());
+        }
+
+        $annee = $debut_annee.'-'.$fin_annee;
+
+        return $annee;
+    }
+
+    /**
+     * generation du numero de la carte du scout
+     */
+    public function carte($id)
+    {
+        $mois_encours = Date('m', time());
+        if ($mois_encours > 9){
+            $an = Date('y', time())+1;
+        }else{
+            $an = Date('y', time());
+        }
+
+        if ($id < 10){
+            $num = '0000'.$id;
+        }elseif($id < 100){
+            $num = '000'.$id;
+        }elseif ($id < 1000){
+            $num = '00'.$id;
+        }elseif ($id < 10000){
+            $num = '0'.$id;
+        }else{
+            $num = $id;
+        }
+
+        $scout = $this->em->getRepository("AppBundle:Scout")->findOneBy(['id'=>$id]);
+        $code = $this->em->getRepository("AppBundle:Region")->getRegionCode($scout->getGroupe()->getId());
+
+        $carte = $code.''.$an.'-'.$num;
+
+        $scout->setCarte($carte);
+        $this->em->flush();
+
+        return true;
+
     }
 }
