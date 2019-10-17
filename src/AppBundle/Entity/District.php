@@ -32,6 +32,13 @@ class District
     /**
      * @var string
      *
+     * @ORM\Column(name="doyenne", type="string", length=125, nullable=true)
+     */
+    private $doyenne;
+
+    /**
+     * @var string
+     *
      * @Gedmo\Slug(fields={"nom"})
      * @ORM\Column(name="slug", type="string", length=255)
      */
@@ -252,5 +259,29 @@ class District
     public function getRegion()
     {
         return $this->region;
+    }
+
+    /**
+     * Set doyenne
+     *
+     * @param string $doyenne
+     *
+     * @return District
+     */
+    public function setDoyenne($doyenne)
+    {
+        $this->doyenne = $doyenne;
+
+        return $this;
+    }
+
+    /**
+     * Get doyenne
+     *
+     * @return string
+     */
+    public function getDoyenne()
+    {
+        return $this->doyenne;
     }
 }

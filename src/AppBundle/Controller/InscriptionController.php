@@ -99,7 +99,9 @@ class InscriptionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $scout = $em->getRepository("AppBundle:Scout")->findOneBy(['matricule'=>$matricule]);
         if (!$scout){
-            return $this->render("default/404.html.twig");
+            $message = "Votre carte provisoire n'est pas encore disponible. Veuillez ressaisir les informations requises ou
+							prière vous inscrire.";
+            return $this->render("default/404.html.twig",['message'=>$message]);
         }
         return $this->render('default/carte.html.twig',[
             'scout'=>$scout,
