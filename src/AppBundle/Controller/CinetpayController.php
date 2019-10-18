@@ -71,8 +71,8 @@ class CinetpayController extends Controller
                         // generation du matricule
                         $matricule = $gestionScout->matricule($userInfo->getGroupe());
 
-                        $scout->setNom($userInfo->getLastName());
-                        $scout->setPrenoms($userInfo->getFirstName());
+                        $scout->setNom($userInfo->getFirstName());
+                        $scout->setPrenoms($userInfo->getLastName());
                         $scout->setDatenaiss($userInfo->getBirthday());
                         $scout->setLieunaiss($userInfo->getBirthLocation());
                         $scout->setSexe($userInfo->getSexeAdh());
