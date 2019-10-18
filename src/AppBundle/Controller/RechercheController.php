@@ -36,7 +36,9 @@ class RechercheController extends Controller
             $scout = $em->getRepository("AppBundle:Scout")->findOneBy(['nom'=>$nom, 'datenaiss'=>$datenaissance]);
 
             if (!$scout){
-                return $this->render("default/404.html.twig");
+                $message = "Votre carte provisoire n'est pas encore disponible. Veuillez ressaisir les informations requises ou
+							prière vous inscrire.";
+                return $this->render("default/404.html.twig",['message'=>$message]);
             }
 
             return $this->render("default/carte.html.twig", [
