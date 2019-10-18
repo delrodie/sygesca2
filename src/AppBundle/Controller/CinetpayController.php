@@ -99,7 +99,7 @@ class CinetpayController extends Controller
                         $scout->setGroupe($userInfo->getGroupe());
 
                         // Verification de l'existence du scout dans le système pour cette année scoute
-                        $existe = $gestionScout->verifExistence($userInfo->getLastName(),$userInfo->getFirstName(),$userInfo->getBirthday(),$userInfo->getBirthLocation());
+                        $existe = $gestionScout->verifExistence($userInfo->getFirstName(),$userInfo->getLastName(),$userInfo->getBirthday(),$userInfo->getBirthLocation());
                         if ($existe){
                             $message = "Vous êtes déjà inscrit(e) pour cette année scoute. Veuillez re-essayer à partir de septembre prochain";
                             return $this->render('default/404.html.twig', ['message'=>$message]);
