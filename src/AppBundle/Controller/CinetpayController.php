@@ -103,15 +103,17 @@ class CinetpayController extends Controller
                         if ($existe){
                             $message = "Vous êtes déjà inscrit(e) pour cette année scoute. Veuillez re-essayer à partir de septembre prochain";
                             return $this->render('default/404.html.twig', ['message'=>$message]);
+                        }else{
+                            $em->persist($scout);
+                            $em->flush();
+
+                            $gestionScout->carte($scout->getId());
+                            $gestionCotisation->save($scout->getId());
+
+                            return $this->redirectToRoute('scout_carte',['matricule'=>$scout->getMatricule()]);
                         }
 
-                        $em->persist($scout);
-                        $em->flush();
 
-                        $gestionScout->carte($scout->getId());
-                        $gestionCotisation->save($scout->getId());
-
-                        return $this->redirectToRoute('scout_carte',['matricule'=>$scout->getMatricule()]);
                     }
                 }else{
                     die('errer');
