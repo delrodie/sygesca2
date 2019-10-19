@@ -93,7 +93,13 @@
 														{% if scout.fonction %}
 															<div>Fonction: <span style="font-weight: bold;">{{ scout.fonction}}</span></div>
 														{% endif %}
-														<div>En cas d'urgence: <span style="font-weight: bold; color: blue">{{ scout.contactParent}}</span></div>
+														<div>
+															En cas d'urgence: <span style="font-weight: bold; color: blue">{{ scout.contactParent}}</span>
+															{% if scout.urgence == 'AUTRE' %}
+															{% else %}
+																({{ scout.urgence }})
+															{% endif %}
+														</div>
 													</div>
 												</div>
 											</div>
