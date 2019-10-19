@@ -65,7 +65,7 @@ class CinetpayController extends Controller
                 if ($cpm_result == '00'){
                     // requete  d'existence dans la table user_info
                     $userInfo = $em->getRepository("AppBundle:UserInfos")->findOneBy(['idTransaction'=>$cpmTransId]);
-                    if ($userInfo){
+                    if ($userInfo){ //dump($cpm_amount);die();
                         $scout = new Scout();
 
                         // generation du matricule
@@ -79,6 +79,7 @@ class CinetpayController extends Controller
                         $scout->setContact($userInfo->getNumPerso());
                         $scout->setContactParent($userInfo->getPhone());
                         $scout->setMatricule($matricule);
+                        $scout->setUrgence($userInfo->getContactName());
                         // fonction
                         $fonction = $em->getRepository("AppBundle:Fonctions")->findOneBy(['id'=>$userInfo->getFonctions()->getId()]);
                         $scout->setFonction($fonction->getLibelle());
@@ -108,7 +109,7 @@ class CinetpayController extends Controller
                             $em->flush();
 
                             $gestionScout->carte($scout->getId());
-                            $gestionCotisation->save($scout->getId());
+                            $gestionCotisation->save($scout->getId(), $cpm_amount);
 
                             return $this->redirectToRoute('scout_carte',['matricule'=>$scout->getMatricule()]);
                         }

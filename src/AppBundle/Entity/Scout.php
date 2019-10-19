@@ -116,6 +116,13 @@ class Scout
     /**
      * @var string
      *
+     * @ORM\Column(name="urgence", type="string", length=255, nullable=true)
+     */
+    private $urgence;
+
+    /**
+     * @var string
+     *
      * @Gedmo\Slug(fields={"nom","prenoms","matricule"})
      * @ORM\Column(name="slug", type="string", length=255)
      */
@@ -700,5 +707,29 @@ class Scout
     public function getCotisations()
     {
         return $this->cotisations;
+    }
+
+    /**
+     * Set urgence
+     *
+     * @param string $urgence
+     *
+     * @return Scout
+     */
+    public function setUrgence($urgence)
+    {
+        $this->urgence = $urgence;
+
+        return $this;
+    }
+
+    /**
+     * Get urgence
+     *
+     * @return string
+     */
+    public function getUrgence()
+    {
+        return $this->urgence;
     }
 }

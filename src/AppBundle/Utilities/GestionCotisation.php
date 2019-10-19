@@ -20,7 +20,7 @@ class GestionCotisation
     /**
      * Enregistrement de la cotisation du scout
      */
-    public function save($scoutID)
+    public function save($scoutID, $montant = null)
     {
         $cotisation = new Cotisation();
         $annee = $this->gestionScout->cotisation();
@@ -36,6 +36,7 @@ class GestionCotisation
         $cotisation->setAnnee($annee);
         $cotisation->setScout($scout);
         $cotisation->setCarte($scout->getCarte());
+        $cotisation->setMontant($montant);
 
         $this->em->persist($cotisation);
         $this->em->flush();

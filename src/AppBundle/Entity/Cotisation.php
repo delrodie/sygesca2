@@ -44,6 +44,13 @@ class Cotisation
     private $carte;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="montant", type="string", length=255, nullable=true)
+     */
+    private $montant;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Scout", inversedBy="cotisations")
      * @ORM\JoinColumn(name="scout_id", referencedColumnName="id")
      */
@@ -154,5 +161,29 @@ class Cotisation
     public function getCarte()
     {
         return $this->carte;
+    }
+
+    /**
+     * Set montant
+     *
+     * @param string $montant
+     *
+     * @return Cotisation
+     */
+    public function setMontant($montant)
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    /**
+     * Get montant
+     *
+     * @return string
+     */
+    public function getMontant()
+    {
+        return $this->montant;
     }
 }
