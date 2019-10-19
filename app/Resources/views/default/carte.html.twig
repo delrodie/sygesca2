@@ -95,9 +95,11 @@
 														{% endif %}
 														<div>
 															En cas d'urgence: <span style="font-weight: bold; color: blue">{{ scout.contactParent}}</span>
-															{% if scout.urgence == 'AUTRE' %}
+															{% if scout.urgence == "AUTRE" %}
 															{% else %}
-																({{ scout.urgence }})
+																{% if scout.urgence %}
+																	({{ scout.urgence }})
+																{% endif %}
 															{% endif %}
 														</div>
 													</div>
