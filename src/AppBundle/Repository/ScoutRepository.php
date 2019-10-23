@@ -42,4 +42,75 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
 
         return $lettre_aleatoire;
     }
+
+    /**
+     * Nombre de scout par region
+     */
+    public function getNombreByRegion($region, $cotisation)
+    {
+        return $this->createQueryBuilder('s')
+                    ->select('count(s.id)')
+                    ->leftJoin('s.groupe', 'g')
+                    ->leftJoin('g.district', 'd')
+                    ->leftJoin('d.region', 'r')
+                    ->where('r.slug = :region')
+                    ->andWhere('s.cotisation = :annee')
+                    ->setParameters([
+                        'region'=>$region,
+                        'annee'=>$cotisation
+                    ])
+                    ->getQuery()->getSingleScalarResult()
+            ;
+    }
+
+    /**
+     * Nombre total de scout inscrit
+     */
+    public function getNmbreTotal($cotisation)
+    {
+        return $this->createQueryBuilder('s')
+                    ->select('count(s.id)')
+                    ->where('s.cotisation = :annee')
+                    ->setParameter('annee', $cotisation)
+                    ->getQuery()->getSingleScalarResult()
+            ;
+    }
+
+    /**
+     * Nombre total d'inscrits selon le statut
+     */
+    public function getNombreTotalParStatut($slug, $cotisation)
+    {
+        return $this->createQueryBuilder('s')
+                    ->select('count(s.id)')
+                    ->leftJoin('s.statut', 'statut')
+                    ->where('statut.libelle LIKE :slug')
+                    ->andWhere('s.cotisation = :annee')
+                    ->setParameters([
+                        'slug' => '%'.$slug,
+                        'annee' => $cotisation
+                    ])
+                    ->getQuery()->getSingleScalarResult()
+            ;
+    }
+
+    /**
+     * Nombre total d'inscrits par brnche
+     */
+    public function getNombreTotalParBranche($statut,$branche,$cotisation)
+    {
+        return $this->createQueryBuilder('s')
+                    ->select('count(s.id)')
+                    ->leftJoin('s.statut', 'statut')
+                    ->where('statut.libelle LIKE :statut')
+                    ->andWhere('s.branche LIKE :branche')
+                    ->andWhere('s.cotisation = :annee')
+                    ->setParameters([
+                        'statut' => '%'.$statut,
+                        'branche' => '%'.$branche.'%',
+                        'annee' => $cotisation
+                    ])
+                    ->getQuery()->getSingleScalarResult()
+            ;
+    }
 }

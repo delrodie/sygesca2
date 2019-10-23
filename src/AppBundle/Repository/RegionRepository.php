@@ -16,6 +16,17 @@ class RegionRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
+     * Liste des regions  spécifiques
+     */
+    public function findOnlyRegion()
+    {
+        return $this->createQueryBuilder('r')
+                    ->where('r.id BETWEEN 4 AND 18')
+                    ->getQuery()->getResult()
+            ;
+    }
+
+    /**
      * Fonction de recherche du code de la region par l'Id du groupe
      */
     public function getRegionCode($groupe)

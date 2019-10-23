@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Fonction</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fonction.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ fonction.libelle }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ fonction.montant }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{{ fonction.createdAt }}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{{ fonction.updatedAt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_fonction_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_fonction_edit', { 'id': fonction.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

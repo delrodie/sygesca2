@@ -1,5 +1,168 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ parent() }} Tableau de bord {% endblock %}
 {% block body %}
+	<div class="admin-content">
+		<div class="container p-t-20">
+			<div class="row">
+				<div class="col-12 m-b-30">
+					<h3>Tableau de bord</h3>
+				</div>
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Louveteaux </div>
+										</div>
+									</div>
+									{{ render(url('statistques_branche',{'slug': 'LOUVETEAU'})) }}
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Eclaireurs </div>
+										</div>
+									</div>
+									{{ render(url('statistques_branche',{'slug': 'ECLAIREUR'})) }}
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Cheminots </div>
+										</div>
+									</div>
+									{{ render(url('statistques_branche',{'slug': 'CHEMINOT'})) }}
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Routiers </div>
+										</div>
+									</div>
+									{{ render(url('statistques_branche',{'slug': 'ROUTIER'})) }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-lg-6 my-auto">
+											<h2>Objectif 2020 </h2>
+											<p class="text-muted">{{ render(url('statistiques_total'))|number_format('0','','.')}} / 20.000</p>
+										</div>
+										<div class="col-lg-6">
+											<div style="  overflow: hidden;
+    max-height: 210px!important">
+												<div id="objectif"></div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-6">
+									<!--widget card begin-->
+									<div class="card m-b-30">
+										<div class="card-body">
+											<div class="row">
+												<div class="col my-auto">
+													<div class="h6 text-muted ">Adultes </div>
+												</div>
+											</div>
+											{{ render(url('statistiques_total_statut',{'slug': 'Adulte'})) }}
+										</div>
+									</div>
+									<!--widget card ends-->
+
+								</div>
+								<div class="col-lg-6">
+									<!--widget card begin-->
+									<div class="card m-b-30">
+										<div class="card-body">
+											<div class="row">
+												<div class="col my-auto">
+													<div class="h6 text-muted ">Jeunes </div>
+												</div>
+											</div>
+											{{ render(url('statistiques_total_statut',{'slug': 'Jeune'})) }}
+										</div>
+									</div>
+									<!--widget card ends-->
+
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="card">
+
+								<div class="card-body">
+									<div class="card-header">
+									</div>
+									<div id="histogram"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
 
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+        if($("#objectif").length)
+        {var options={chart:{height:350,type:"radialBar"},
+            plotOptions:{radialBar:{startAngle:-90,endAngle:90,
+                    dataLabels:{name:{show:false},value:{offsetY:0,fontSize:"22px"}}}
+            },
+            fill:{type:"gradient",gradient:{shade:"dark",shadeIntensity:.15,inverseColors:false,opacityFrom:1,opacityTo:1,stops:[0,50,65,91]}
+            },
+            stroke:{dashArray:4},
+            series:[
+				{{ render(url('statistiques_pourcentage_total')) }}
+			]
+        };
+            var chart=new ApexCharts(document.querySelector("#objectif"),options);chart.render()}
+
+        if($("#histogram").length){var options={chart:{height:350,type:"bar"},plotOptions:{bar:{dataLabels:{position:"top"}}},dataLabels:{enabled:true,formatter:function(val){return val+"%"},offsetY:-20,style:{fontSize:"12px",colors:["#304758"]}},
+            series:[
+                {name:"Inflation",
+					data:[
+						{% for region in regions %}
+						{{ render(url('statistiques_region_nombre', {'slug':region.slug})) }},
+						{% endfor %}
+					]
+                }
+            ],
+            xaxis:{categories:[
+					{% for region in regions %}
+						"{{ region.nom|slice(0,3) }}",
+					{% endfor %}
+				],
+                position:"top",labels:{offsetY:-18},axisBorder:{show:false},axisTicks:{show:false},crosshairs:{fill:{type:"gradient",gradient:{colorFrom:"#D8E3F0",colorTo:"#BED1E6",stops:[0,100],opacityFrom:.4,opacityTo:.5}}},tooltip:{enabled:true,offsetY:-35}},fill:{gradient:{shade:"light",type:"horizontal",shadeIntensity:.25,gradientToColors:undefined,inverseColors:true,opacityFrom:1,opacityTo:1,stops:[50,0,100,100]}},yaxis:{axisBorder:{show:false},axisTicks:{show:false},labels:{show:false,formatter:function(val){return val+"%"}}},title:{text:"Statistiques par region",floating:true,offsetY:320,align:"center",style:{color:"#444"}}};
+        var chart=new ApexCharts(document.querySelector("#histogram"),options);chart.render()
+        }
+	</script>
+{% endblock %}
