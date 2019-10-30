@@ -24,7 +24,7 @@ class CinetpayController extends Controller
     public function indexAction(Request $request, GestionScout $gestionScout, GestionCotisation $gestionCotisation)
     {
         $em =$this->getDoctrine()->getManager();
-        $cpmTransId = $request->get('cpm_trans_id'); //dump($cpmTransId);die();
+        $cpmTransId = $request->get('cpm_trans_id'); //  dump($cpmTransId);die();
         if (isset($cpmTransId)) {
             // SDK PHP de CinetPay
 
@@ -40,7 +40,7 @@ class CinetpayController extends Controller
                 $CinetPay = new CinetPay($site_id, $apiKey, $plateform, $version);
                 //$CinetPay = new \CinetPay($site_id, $apiKey, $plateform, $version);
                 // Reprise exacte des bonnes données chez CinetPay
-                $CinetPay->setTransId($id_transaction)->getPayStatus();
+                $CinetPay->setTransId($id_transaction)->getPayStatus(); //dump($CinetPay);die();
                 $cpm_site_id = $CinetPay->_cpm_site_id;
                 $signature = $CinetPay->_signature;
                 $cpm_amount = $CinetPay->_cpm_amount;
