@@ -22,7 +22,8 @@ class InscriptionController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('default/formulaire.html.twig');
+        return $this->redirectToRoute('recherche_index');
+        //return $this->render('default/formulaire.html.twig');
     }
 
     /**
