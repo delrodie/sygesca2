@@ -116,21 +116,42 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
     /**
      * Nombre total d'inscrits par brnche
      */
-    public function getNombreTotalParBranche($statut,$branche,$cotisation)
+    public function getNombreTotalParBranche($statut,$branche,$cotisation, $region = null)
     {
-        return $this->createQueryBuilder('s')
-                    ->select('count(s.id)')
-                    ->leftJoin('s.statut', 'statut')
-                    ->where('statut.libelle LIKE :statut')
-                    ->andWhere('s.branche LIKE :branche')
-                    ->andWhere('s.cotisation = :annee')
-                    ->setParameters([
-                        'statut' => '%'.$statut,
-                        'branche' => '%'.$branche.'%',
-                        'annee' => $cotisation
-                    ])
-                    ->getQuery()->getSingleScalarResult()
-            ;
+        if (!$region){
+            return $this->createQueryBuilder('s')
+                ->select('count(s.id)')
+                ->leftJoin('s.statut', 'statut')
+                ->where('statut.libelle LIKE :statut')
+                ->andWhere('s.branche LIKE :branche')
+                ->andWhere('s.cotisation = :annee')
+                ->setParameters([
+                    'statut' => '%'.$statut,
+                    'branche' => '%'.$branche.'%',
+                    'annee' => $cotisation
+                ])
+                ->getQuery()->getSingleScalarResult()
+                ;
+        }else{
+            return $this->createQueryBuilder('s')
+                        ->select('count(s.id)')
+                        ->leftJoin('s.statut', 'statut')
+                        ->leftJoin('s.groupe', 'g')
+                        ->leftJoin('g.district', 'd')
+                        ->leftJoin('d.region', 'r')
+                        ->where('statut.libelle LIKE :statut')
+                        ->andWhere('s.branche LIKE :branche')
+                        ->andWhere('s.cotisation = :annee')
+                        ->andWhere('r.slug = :region')
+                        ->setParameters([
+                            'statut' => '%'.$statut,
+                            'branche' => '%'.$branche.'%',
+                            'annee' => $cotisation,
+                            'region' => $region
+                        ])
+                        ->getQuery()->getSingleScalarResult()
+                ;
+        }
     }
 
     public function getNombreTotalParSexe($cotisation, $sexe, $region = null)
@@ -152,5 +173,67 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                         ->getQuery()->getSingleScalarResult()
                 ;
         }
+    }
+
+    /**
+     * Liste des scouts par district
+     */
+    public function getNombreByDistrict($slug, $annee)
+    {
+        return $this->createQueryBuilder('s')
+                    ->select('count(s.id)')
+                    ->leftJoin('s.groupe', 'g')
+                    ->leftJoin('g.district', 'd')
+                    ->where('d.slug = :district')
+                    ->andWhere('s.cotisation = :annee')
+                    ->setParameters([
+                        'district'=>$slug,
+                        'annee'=>$annee
+                    ])
+                    ->getQuery()->getSingleScalarResult()
+            ;
+    }
+
+    /**
+     * Nombre de scouts par district selon le statut
+     */
+    public function getNombreByDistrictStatut($slug,$statut,$annee)
+    {
+        return $this->createQueryBuilder('s')
+                    ->select('count(s.id)')
+                    ->leftJoin('s.statut', 'st')
+                    ->leftJoin('s.groupe', 'g')
+                    ->leftJoin('g.district', 'd')
+                    ->where('d.slug = :district')
+                    ->andWhere('s.cotisation = :annee')
+                    ->andWhere('st.libelle = :statut')
+                    ->setParameters([
+                        'district'=>$slug,
+                        'annee'=>$annee,
+                        'statut'=>$statut
+                    ])
+                    ->getQuery()->getSingleScalarResult()
+            ;
+    }
+
+    /**
+     * Nombre de scouts par district selon le statut
+     */
+    public function getNombreByDistrictSexe($slug,$sexe,$annee)
+    {
+        return $this->createQueryBuilder('s')
+                    ->select('count(s.id)')
+                    ->leftJoin('s.groupe', 'g')
+                    ->leftJoin('g.district', 'd')
+                    ->where('d.slug = :district')
+                    ->andWhere('s.cotisation = :annee')
+                    ->andWhere('s.sexe = :sexe')
+                    ->setParameters([
+                        'district'=>$slug,
+                        'annee'=>$annee,
+                        'sexe'=>$sexe
+                    ])
+                    ->getQuery()->getSingleScalarResult()
+            ;
     }
 }

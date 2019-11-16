@@ -14,4 +14,15 @@ class DistrictRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->createQueryBuilder('d')->orderBy('d.nom', 'ASC');
     }
+
+    public function findByRegion($slug)
+    {
+        return $this->createQueryBuilder('d')
+                    ->leftJoin('d.region', 'r')
+                    ->where('r.slug = :region')
+                    ->orderBy('d.nom', 'ASC')
+                    ->setParameter('region', $slug)
+                    ->getQuery()->getResult()
+            ;
+    }
 }

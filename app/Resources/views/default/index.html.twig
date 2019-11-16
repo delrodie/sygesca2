@@ -4,8 +4,18 @@
 	<div class="admin-content">
 		<div class="container p-t-20">
 			<div class="row">
-				<div class="col-12 m-b-30">
+				<div class="col-6 m-b-30 mt-5">
 					<h3>Tableau de bord</h3>
+				</div>
+				<div class="col-6 m-b-30 mt-5">
+					<form action="{{ path('tbord_region') }}" method="post">
+						<select name="region" id="region" class="form-control js-select2" onchange="this.form.submit()">
+							<option value="">-- Selectionnez la région --</option>
+							{% for region in regions %}
+								<option value="{{ region.slug }}">{{ region.nom }}</option>
+							{% endfor %}
+						</select>
+					</form>
 				</div>
 				<div class="col-md-12">
 					<div class="row">
