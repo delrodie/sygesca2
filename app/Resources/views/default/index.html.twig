@@ -125,6 +125,51 @@
 					</div>
 				</div>
 			</div>
+			<div class="row">
+
+				<div class="col-md-12">
+					<div class="card m-b-30">
+						<div class="card-header">
+							<h5 class="m-b-0">
+								<i class="mdi mdi-checkbox-intermediate"></i> Statistiques par région
+							</h5>
+
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+
+								<table class="table table-hover ">
+									<thead>
+									<tr>
+										<th>Region</th>
+										<th>Totaux</th>
+										<th>Jeunes</th>
+										<th>Adultes</th>
+										<th>Femmes</th>
+										<th>Hommes</th>
+									</tr>
+									</thead>
+									<tbody>
+									{% for region in regions %}
+										<tr>
+											<td class="text-left">{{ region.nom }}</td>
+											<td class="text-center">{{ render(url('totaux_region',{'slug': region.slug})) }}</td>
+											<td class="text-center">{{ render(url('totaux_region_statut',{'statut':'Jeune', 'slug':region.slug})) }}</td>
+											<td class="text-center">{{ render(url('totaux_region_statut',{'statut':'Adulte', 'slug':region.slug})) }}</td>
+											<td class="text-center">{{ render(url('totaux_region_sexe',{'sexe': 'FEMME', 'slug': region.slug})) }}</td>
+											<td class="text-center">{{ render(url('totaux_region_sexe',{'sexe': 'HOMME', 'slug': region.slug})) }}</td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+
+
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}

@@ -79,19 +79,38 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
     /**
      * Nombre total d'inscrits selon le statut
      */
-    public function getNombreTotalParStatut($slug, $cotisation)
+    public function getNombreTotalParStatut($slug, $cotisation, $region = null)
     {
-        return $this->createQueryBuilder('s')
-                    ->select('count(s.id)')
-                    ->leftJoin('s.statut', 'statut')
-                    ->where('statut.libelle LIKE :slug')
-                    ->andWhere('s.cotisation = :annee')
-                    ->setParameters([
-                        'slug' => '%'.$slug,
-                        'annee' => $cotisation
-                    ])
-                    ->getQuery()->getSingleScalarResult()
-            ;
+        if (!$region){
+            return $this->createQueryBuilder('s')
+                ->select('count(s.id)')
+                ->leftJoin('s.statut', 'statut')
+                ->where('statut.libelle LIKE :slug')
+                ->andWhere('s.cotisation = :annee')
+                ->setParameters([
+                    'slug' => '%'.$slug,
+                    'annee' => $cotisation
+                ])
+                ->getQuery()->getSingleScalarResult()
+                ;
+        }else{
+            return $this->createQueryBuilder('s')
+                ->select('count(s.id)')
+                ->leftJoin('s.statut', 'statut')
+                ->leftJoin('s.groupe', 'g')
+                ->leftJoin('g.district', 'd')
+                ->leftJoin('d.region', 'r')
+                ->where('statut.libelle LIKE :slug')
+                ->andWhere('s.cotisation = :annee')
+                ->andWhere('r.slug = :region')
+                ->setParameters([
+                    'slug' => '%'.$slug,
+                    'annee' => $cotisation,
+                    'region' => $region
+                ])
+                ->getQuery()->getSingleScalarResult()
+                ;
+        }
     }
 
     /**
@@ -112,5 +131,26 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                     ])
                     ->getQuery()->getSingleScalarResult()
             ;
+    }
+
+    public function getNombreTotalParSexe($cotisation, $sexe, $region = null)
+    {
+        if ($region){
+            return $this->createQueryBuilder('s')
+                        ->select('count(s.id)')
+                        ->leftJoin('s.groupe', 'g')
+                        ->leftJoin('g.district', 'd')
+                        ->leftJoin('d.region', 'r')
+                        ->where('s.sexe = :sexe')
+                        ->andWhere('s.cotisation = :annee')
+                        ->andWhere('r.slug = :region')
+                        ->setParameters([
+                            'sexe'=> $sexe,
+                            'annee' => $cotisation,
+                            'region' => $region
+                        ])
+                        ->getQuery()->getSingleScalarResult()
+                ;
+        }
     }
 }
