@@ -51,7 +51,6 @@ class UserType extends AbstractType
                 'ADMINISTRATEUR '  => 'ROLE_ADMIN',
               ),
               'attr'  => array(
-                  'class' => 'form-control',
                   'autocomplete'  => 'off'
               ),
               'multiple'  => true,
