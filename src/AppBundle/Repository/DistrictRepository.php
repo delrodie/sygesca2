@@ -25,4 +25,21 @@ class DistrictRepository extends \Doctrine\ORM\EntityRepository
                     ->getQuery()->getResult()
             ;
     }
+
+    public function getDistrictNombre($region= null)
+    {
+        if (!$region){
+            return $this->createQueryBuilder('d')
+                ->select('count(d.id)')
+                ->getQuery()->getSingleScalarResult()
+                ;
+        }else{
+            return $this->createQueryBuilder('d')
+                ->select('count(d.id)')
+                ->where('d.region = :region')
+                ->setParameter('region', $region)
+                ->getQuery()->getSingleScalarResult()
+                ;
+        }
+    }
 }

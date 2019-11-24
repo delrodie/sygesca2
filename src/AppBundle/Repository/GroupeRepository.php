@@ -14,4 +14,48 @@ class GroupeRepository extends \Doctrine\ORM\EntityRepository
     {
         return $this->createQueryBuilder('g')->orderBy('g.paroisse', 'ASC');
     }
+
+    public function getGroupeNombre($region=null, $district=null)
+    {
+        if (!$region){
+            return $this->createQueryBuilder('g')
+                        ->select('count(g.id)')
+                        ->getQuery()->getSingleScalarResult()
+                ;
+        }elseif ($district){
+            return $this->createQueryBuilder('g')
+                        ->select('count(g.id)')
+                        ->where('g.district = :district')
+                        ->setParameter('district', $district)
+                        ->getQuery()->getSingleScalarResult()
+                ;
+        }
+        else{
+            return $this->createQueryBuilder('g')
+                        ->select('count(g.id)')
+                        ->leftJoin('g.district', 'd')
+                        ->where('d.region = :region')
+                        ->setParameter('region', $region)
+                        ->getQuery()->getSingleScalarResult()
+                ;
+        }
+    }
+
+    public function findGroupeDESC($region=null)
+    {
+        if (!$region){
+            return $this->createQueryBuilder('g')
+                ->orderBy('g.id', 'DESC')
+                ->getQuery()->getResult()
+                ;
+        }else{
+            return $this->createQueryBuilder('g')
+                        ->leftJoin('g.district', 'd')
+                        ->where('d.region = :region')
+                        ->orderBy('g.id', 'DESC')
+                        ->setParameter('region', $region)
+                        ->getQuery()->getResult()
+                ;
+        }
+    }
 }

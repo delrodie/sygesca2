@@ -50,4 +50,13 @@ class RegionRepository extends \Doctrine\ORM\EntityRepository
             return $e;
         }
     }
+
+    public function getRegionNombre()
+    {
+        return $this->createQueryBuilder('r')
+                    ->select('count(r.id)')
+                    ->where('r.id BETWEEN 4 AND 18')
+                    ->getQuery()->getSingleScalarResult()
+            ;
+    }
 }
