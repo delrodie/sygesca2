@@ -31,8 +31,11 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $slug = $request->get('region'); //dump($slug);die();
-        $regions = $em->getRepository("AppBundle:Region")->findOnlyRegion();
-        $region = $em->getRepository("AppBundle:Region")->findOneBy(['slug'=>$slug]);
+        if (!$slug){
+            $region = null;
+        }else{
+            $region = $em->getRepository("AppBundle:Region")->findOneBy(['slug'=>$slug]);
+        }
 
         // Statistiques
         $total_jeune = $em->getRepository("AppBundle:Scout")->getNombreTotalParStatut('Jeune',$gestionScout->cotisation(), $slug);
@@ -46,6 +49,7 @@ class DefaultController extends Controller
         if (!$total_jeune){
             $total_jeune = 1;
         }
+        $regions = $em->getRepository("AppBundle:Region")->findOnlyRegion();
         // Total inscrits
         $nombre_scout = $em->getRepository("AppBundle:Scout")->getNombreByRegion($slug, $gestionScout->cotisation());
         if (!$nombre_scout){

@@ -172,6 +172,17 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                         ])
                         ->getQuery()->getSingleScalarResult()
                 ;
+        }else{
+            return $this->createQueryBuilder('s')
+                        ->select('count(s.id)')
+                        ->where('s.sexe = :sexe')
+                        ->andWhere('s.cotisation = :annee')
+                        ->setParameters([
+                            'annee' => $cotisation,
+                            'sexe' => $sexe
+                        ])
+                        ->getQuery()->getSingleScalarResult()
+                ;
         }
     }
 
@@ -235,5 +246,126 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                     ])
                     ->getQuery()->getSingleScalarResult()
             ;
+    }
+
+    /**
+     * Total des sexe
+     */
+    public function getNombreSexeByStatut($cotisation, $sexe, $statut, $region=null)
+    {
+        if (!$region){
+            return $this->createQueryBuilder('s')
+                        ->select('count(s.id)')
+                        ->leftJoin('s.statut', 'st')
+                        ->where('st.libelle = :statut')
+                        ->andWhere('s.sexe = :sexe')
+                        ->andWhere('s.cotisation = :annee')
+                        ->setParameters([
+                            'statut' => $statut,
+                            'sexe' => $sexe,
+                            'annee' => $cotisation,
+                        ])
+                        ->getQuery()->getSingleScalarResult()
+                ;
+        }else{
+            return $this->createQueryBuilder('s')
+                        ->select('count(s.id)')
+                        ->leftJoin('s.statut', 'st')
+                        ->leftJoin('s.groupe', 'g')
+                        ->leftJoin('g.district', 'd')
+                        ->leftJoin('d.region', 'r')
+                        ->where('st.libelle = :statut')
+                        ->andWhere('s.sexe = :sexe')
+                        ->andWhere('s.cotisation = :annee')
+                        ->andWhere('r.slug = :region')
+                        ->setParameters([
+                            'statut' => $statut,
+                            'sexe' => $sexe,
+                            'annee' => $cotisation,
+                            'region' => $region,
+                        ])
+                        ->getQuery()->getSingleScalarResult()
+                ;
+        }
+    }
+
+    public function getNombreSexeByStatutAndBranche($cotisation,$sexe,$statut,$branche,$region=null)
+    {
+        if (!$region){
+            return $this->createQueryBuilder('s')
+                        ->select('count(s.id)')
+                        ->leftJoin('s.statut', 'st')
+                        ->where('st.libelle = :statut')
+                        ->andWhere('s.sexe = :sexe')
+                        ->andWhere('s.branche LIKE :branche')
+                        ->andWhere('s.cotisation = :annee')
+                        ->setParameters([
+                            'statut' => $statut,
+                            'sexe' => $sexe,
+                            'annee' => $cotisation,
+                            'branche' => '%'.$branche.'%',
+                        ])
+                        ->getQuery()->getSingleScalarResult()
+                ;
+        }else{
+            return $this->createQueryBuilder('s')
+                        ->select('count(s.id)')
+                        ->leftJoin('s.statut', 'st')
+                        ->leftJoin('s.groupe', 'g')
+                        ->leftJoin('g.district', 'd')
+                        ->leftJoin('d.region', 'r')
+                        ->where('st.libelle = :statut')
+                        ->andWhere('s.sexe = :sexe')
+                        ->andWhere('s.branche LIKE :branche')
+                        ->andWhere('s.cotisation = :annee')
+                        ->andWhere('r.slug = :region')
+                        ->setParameters([
+                            'statut' => $statut,
+                            'sexe' => $sexe,
+                            'annee' => $cotisation,
+                            'branche' => '%'.$branche.'%',
+                            'region' => $region
+                        ])
+                        ->getQuery()->getSingleScalarResult()
+                ;
+        }
+    }
+
+    public function getTotalStatutByBranche($cotisation,$statut,$branche,$region=null)
+    {
+        if (!$region){
+            return $this->createQueryBuilder('s')
+                        ->select('count(s.id)')
+                        ->leftJoin('s.statut', 'st')
+                        ->where('st.libelle = :statut')
+                        ->andWhere('s.branche LIKE :branche')
+                        ->andWhere('s.cotisation = :annee')
+                        ->setParameters([
+                            'statut' => $statut,
+                            'annee' => $cotisation,
+                            'branche' => '%'.$branche.'%'
+                        ])
+                        ->getQuery()->getSingleScalarResult()
+                ;
+        }else{
+            return $this->createQueryBuilder('s')
+                        ->select('count(s.id)')
+                        ->leftJoin('s.statut', 'st')
+                        ->leftJoin('s.groupe', 'g')
+                        ->leftJoin('g.district', 'd')
+                        ->leftJoin('d.region', 'r')
+                        ->where('st.libelle = :statut')
+                        ->andWhere('s.branche LIKE :branche')
+                        ->andWhere('s.cotisation = :annee')
+                        ->andWhere('r.slug LIKE :region')
+                        ->setParameters([
+                            'statut' => $statut,
+                            'annee' => $cotisation,
+                            'branche' => '%'.$branche.'%',
+                            'region' => '%'.$region.'%'
+                        ])
+                        ->getQuery()->getSingleScalarResult()
+                ;
+        }
     }
 }

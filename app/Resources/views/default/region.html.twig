@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ parent() }} Statistiques de la région de {{ region.nom }} {% endblock %}
+{% block title %}{{ parent() }} Statistiques {% if region %}de la région de  region.nom{% endif %} {% endblock %}
 {% block body %}
 	<div class="admin-content">
 		<div class="container p-t-20">
