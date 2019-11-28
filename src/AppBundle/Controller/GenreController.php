@@ -25,7 +25,7 @@ class GenreController extends Controller
         $nombre_total = $em->getRepository("AppBundle:Scout")->getNmbreTotal($gestionScout->cotisation());
         $total_jeune = $em->getRepository("AppBundle:Scout")->getNombreTotalParStatut('Jeune',$gestionScout->cotisation());
         $total_adulte = $em->getRepository("AppBundle:Scout")->getNombreTotalParStatut('Adulte',$gestionScout->cotisation());//dump($total_adulte);
-        $total_louvetier = $em->getRepository("AppBundle:Scout")->getTotalStatutByBranche($gestionScout->cotisation(),'Adulte','LOUVETEAU');
+        $total_louvetier = $em->getRepository("AppBundle:Scout")->getTotalStatutByBranche($gestionScout->cotisation(),'Adulte','L0UVETEAU');
         $total_louveteau = $em->getRepository("AppBundle:Scout")->getTotalStatutByBranche($gestionScout->cotisation(),'Jeune','LOUVETEAU');
         $total_troupier = $em->getRepository("AppBundle:Scout")->getTotalStatutByBranche($gestionScout->cotisation(),'Adulte','ECLAIREUR');
         $total_eclaireur= $em->getRepository("AppBundle:Scout")->getTotalStatutByBranche($gestionScout->cotisation(),'Jeune','ECLAIREUR');
@@ -41,8 +41,8 @@ class GenreController extends Controller
         $nombre_garcon = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatut($gestionScout->cotisation(),'HOMME','Jeune');
         $nombre_fille = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatut($gestionScout->cotisation(),'FEMME','Jeune');
 
-        $nombre_louvetier = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatutAndBranche($gestionScout->cotisation(),'HOMME','Adulte','LOUVETEAU');
-        $nombre_louvetiere = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatutAndBranche($gestionScout->cotisation(),'FEMME','Adulte','LOUVETEAU');
+        $nombre_louvetier = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatutAndBranche($gestionScout->cotisation(),'HOMME','Adulte','L0UVETEAU');
+        $nombre_louvetiere = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatutAndBranche($gestionScout->cotisation(),'FEMME','Adulte','L0UVETEAU');
         $nombre_louveteau = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatutAndBranche($gestionScout->cotisation(),'HOMME','Jeune','LOUVETEAU');
         $nombre_louvette = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatutAndBranche($gestionScout->cotisation(),'FEMME','Jeune','LOUVETEAU');
 
@@ -168,7 +168,7 @@ class GenreController extends Controller
         $nombre_total = $em->getRepository("AppBundle:Scout")->getNombreByRegion($regionSlug,$gestionScout->cotisation());
         $total_jeune = $em->getRepository("AppBundle:Scout")->getNombreTotalParStatut('Jeune',$gestionScout->cotisation(),$regionSlug);
         $total_adulte = $em->getRepository("AppBundle:Scout")->getNombreTotalParStatut('Adulte',$gestionScout->cotisation(),$regionSlug);//dump($total_adulte);
-        $total_louvetier = $em->getRepository("AppBundle:Scout")->getTotalStatutByBranche($gestionScout->cotisation(),'Adulte','LOUVETEAU',$regionSlug);
+        $total_louvetier = $em->getRepository("AppBundle:Scout")->getTotalStatutByBranche($gestionScout->cotisation(),'Adulte','L0UVETEAU',$regionSlug);
         $total_louveteau = $em->getRepository("AppBundle:Scout")->getTotalStatutByBranche($gestionScout->cotisation(),'Jeune','LOUVETEAU',$regionSlug);
         $total_troupier = $em->getRepository("AppBundle:Scout")->getTotalStatutByBranche($gestionScout->cotisation(),'Adulte','ECLAIREUR',$regionSlug);
         $total_eclaireur= $em->getRepository("AppBundle:Scout")->getTotalStatutByBranche($gestionScout->cotisation(),'Jeune','ECLAIREUR',$regionSlug);
@@ -184,8 +184,8 @@ class GenreController extends Controller
         $nombre_garcon = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatut($gestionScout->cotisation(),'HOMME','Jeune',$regionSlug);
         $nombre_fille = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatut($gestionScout->cotisation(),'FEMME','Jeune',$regionSlug);
 
-        $nombre_louvetier = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatutAndBranche($gestionScout->cotisation(),'HOMME','Adulte','LOUVETEAU',$regionSlug);
-        $nombre_louvetiere = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatutAndBranche($gestionScout->cotisation(),'FEMME','Adulte','LOUVETEAU',$regionSlug);
+        $nombre_louvetier = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatutAndBranche($gestionScout->cotisation(),'HOMME','Adulte','L0UVETEAU',$regionSlug);
+        $nombre_louvetiere = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatutAndBranche($gestionScout->cotisation(),'FEMME','Adulte','L0UVETEAU',$regionSlug);
         $nombre_louveteau = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatutAndBranche($gestionScout->cotisation(),'HOMME','Jeune','LOUVETEAU',$regionSlug);
         $nombre_louvette = $em->getRepository("AppBundle:Scout")->getNombreSexeByStatutAndBranche($gestionScout->cotisation(),'FEMME','Jeune','LOUVETEAU',$regionSlug);
 

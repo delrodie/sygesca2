@@ -40,8 +40,8 @@
                                             <td>{{ loop.index }}
                                             <td>{{ user.username }}</td>
                                             <td>{{ user.email }}</td>
-                                            <td>{{ user.firstLogin|date('Y-m-d h:i:s') }} </td>
-                                            <td>{{ user.lastLogin|date('Y-m-d h:i:s') }}</td>
+                                            <td>{{ user.firstLogin|date('Y-m-d H:i:s') }} </td>
+                                            <td>{{ user.lastLogin|date('Y-m-d H:i:s') }}</td>
                                             <td>{{ user.loginCount }}</td>
                                             <td>
                                                 {% if user.roles %}
