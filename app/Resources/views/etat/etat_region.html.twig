@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }} Liste des scouts de la region de {{ region.nom }} {% endblock %}
+{% block body %}
+	<main class="admin-main">
+		<section class="admin-content ">
+			<div class="bg-dark m-b-30">
+				<div class="container">
+					<div class="row">
+						<div class="col-6 m-b-30 mt-5">
+						</div>
+						<div class="col-6 m-b-30 mt-5">
+
+						</div>
+					</div>
+					<div class="row p-b-60 p-t-60">
+
+						<div class="col-md-12 text-white p-b-30">
+							<div class="media">
+								<div class="media-body">
+									<div class="row">
+										<div class="col-md-3">
+											<button class="btn btn-danger" id="printDiv" > <i class="mdi mdi-printer"></i>Imprimer</button>
+										</div>
+										<div class="col-md-6 text-left">
+											<h5 style="color: white">LISTE DES SCOUTS DE <strong>{{ region.nom }}</strong></h5>
+										</div>
+										<div class="col-md-3">
+											<form action="{{ path('etats_regionaux_districts') }}" method="post">
+												<select name="district" id="district" class="form-control js-select2" onchange="this.form.submit()">
+													<option value="">-- Selectionnez le dictrict --</option>
+													{% for district in districts %}
+														<option value="{{ district.slug }}">{{ district.nom }}</option>
+													{% endfor %}
+												</select>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="pull-up">
+				<div class="container" id="printableArea">
+					<div class="row"  >
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="row">
+												<div class="col-md-12">
+													<img src="{{ absolute_url(asset('ressources/img/logo.png')) }}" width="60" class="rounded-circle"
+														 alt="" style="float: left">
+													<H6 class="h6 font-primary mt-1"> &nbsp;&nbsp;
+														ASSOCIATION DES SCOUTS CATHOLIQUES DE COTE D'IVOIRE <br>&nbsp;&nbsp;
+														<span>01 BP 959 ABIDJAN 01 - Tél : 20-22-35-22 - Fax : 20-21-03-35 <br>&nbsp;&nbsp;
+														Email : assciinter@yahoo.fr
+													</span>
+													</H6>
+													<h6 class="h6 pull-right" style="float: right">
+														Annee : <strong>{{ annee }}</strong>
+													</h6>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12 text-center">
+													<h5>LISTE DES SCOUTS DE/D' <strong>{{ region.nom|upper }}</strong> </h5>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<table class="table">
+												<thead>
+												<tr style="font-size: 0.8em; font-weight: bold; background:#c2cbfd;">
+													<td>#</td>
+													<td class="">CARTES</td>
+													<td>MATRICULES</td>
+													<td>NOM & PRENOMS</td>
+													<td>SEXES</td>
+													<td>DATE</td>
+													<td>FONCTIONS</td>
+												</tr>
+												</thead>
+												<tbody>
+												{% for scout in scouts %}
+													<tr style="font-size: 0.9em">
+														<td>{{ loop.index }}</td>
+														<td>{{ scout.carte }}</td>
+														<td>{{ scout.matricule }}</td>
+														<td>{{ scout.nom|upper }} {{ scout.prenoms|title }}</td>
+														<td class="text-center">
+															{% if scout.sexe == "HOMME" %}
+																M
+															{% elseif scout.sexe == "FEMME" %}
+																F
+															{% else %}
+																{{ scout.sexe }}
+															{% endif %}
+														</td>
+														<td class="text-center">{{ scout.datenaiss|date('m-d-Y') }}</td>
+														<td>{{ scout.fonction|title }}</td>
+													</tr>
+												{% endfor %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+	</main>
+{% endblock %}
+
+{% block javascripts %}
+	<script src='{{ absolute_url(asset('ressources/assets/bundles/9556cd6744b0b19628598270bd385082cda6a269.js')) }}'></script>
+	<script src='{{ absolute_url(asset('ressources/assets/js/invoice-print.js'))}}'></script>
+{% endblock %}
+

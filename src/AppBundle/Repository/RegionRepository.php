@@ -21,7 +21,7 @@ class RegionRepository extends \Doctrine\ORM\EntityRepository
     public function findOnlyRegion()
     {
         return $this->createQueryBuilder('r')
-                    ->where('r.id BETWEEN 4 AND 18')
+                    ->where('r.id BETWEEN 1 AND 20')
                     ->getQuery()->getResult()
             ;
     }

@@ -368,4 +368,64 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                 ;
         }
     }
+
+    /**
+     * Nombre des scouts
+     */
+    public function findByRegion($cotisation,$region)
+    {
+        return $this->createQueryBuilder('s')
+                    ->leftJoin('s.groupe', 'g')
+                    ->leftJoin('g.district', 'd')
+                    ->leftJoin('d.region', 'r')
+                    ->where('r.slug = :region')
+                    ->andWhere('s.cotisation = :annee')
+                    ->orderBy('s.nom', "ASC")
+                    ->addOrderBy('s.prenoms', "ASC")
+                    ->setParameters([
+                        'region' => $region,
+                        'annee' => $cotisation
+                    ])
+                    ->getQuery()->getResult()
+            ;
+    }
+
+    /**
+     * Nombre de scouts par district
+     */
+    public function findByDistrict($cotisation,$district)
+    {
+        return $this->createQueryBuilder('s')
+                    ->leftJoin('s.groupe', 'g')
+                    ->leftJoin('g.district', 'd')
+                    ->where('d.slug = :district')
+                    ->andWhere('s.cotisation = :annee')
+                    ->orderBy('s.nom', "ASC")
+                    ->addOrderBy('s.prenoms', "ASC")
+                    ->setParameters([
+                        'district' => $district,
+                        'annee' => $cotisation
+                    ])
+                    ->getQuery()->getResult()
+            ;
+    }
+
+    /**
+     * Liste des scouts par groupe
+     */
+    public function findByGroupe($cotisation,$groupe)
+    {
+        return $this->createQueryBuilder('s')
+                    ->leftJoin('s.groupe', 'g')
+                    ->where('g.slug = :groupe')
+                    ->andWhere('s.cotisation = :annee')
+                    ->orderBy('s.nom', "ASC")
+                    ->addOrderBy('s.prenoms', "ASC")
+                    ->setParameters([
+                        'groupe' => $groupe,
+                        'annee' => $cotisation
+                    ])
+                    ->getQuery()->getResult()
+            ;
+    }
 }
