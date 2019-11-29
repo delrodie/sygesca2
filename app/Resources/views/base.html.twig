@@ -151,6 +151,47 @@
                             </span>
                         </a>
                     </li>
+                    <li class="menu-item">
+                        <a href="#" class="open-dropdown menu-link">
+                         <span class="menu-label">
+                                                <span class="menu-name">Liste des jeunes
+                                                      <span class="menu-arrow"></span>
+                                                </span>
+                                            </span>
+                            <span class="menu-icon">
+
+                                                    <i class="icon-placeholder mdi mdi-format-list-bulleted "></i>
+                                            </span>
+                        </a>
+                        <!--submenu-->
+                        <ul class="sub-menu">
+                            <li class="menu-item">
+                                <a href='#' class=' menu-link'>
+                                     <span class="menu-label"><span class="menu-name">Louveteaux </span></span>
+                                    <span class="menu-icon"><i class="icon-placeholder  ">L</i></span>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href='#' class=' menu-link'>
+                                     <span class="menu-label"><span class="menu-name">Eclaireurs </span></span>
+                                    <span class="menu-icon"><i class="icon-placeholder  ">E</i></span>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href='#' class=' menu-link'>
+                                     <span class="menu-label"><span class="menu-name">Cheminots </span></span>
+                                    <span class="menu-icon"><i class="icon-placeholder  ">C</i></span>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href='#' class=' menu-link'>
+                                     <span class="menu-label"><span class="menu-name">Routiers </span></span>
+                                    <span class="menu-icon"><i class="icon-placeholder  ">R</i></span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
                     <!--<li class="menu-item ">
                         <a href="{{ absolute_url(path('recherche_index')) }}" class=' menu-link'>
                             <span class="menu-label">
@@ -264,7 +305,7 @@
                     <!--submenu-->
                     <ul class="sub-menu">
                         <li class="menu-item">
-                            <a href='#' class=' menu-link'>
+                            <a href="{{ path('admin_gestionnaire_index') }}" class=' menu-link'>
                             <span class="menu-label">
                                 <span class="menu-name">Gestionnaire</span>
                             </span>

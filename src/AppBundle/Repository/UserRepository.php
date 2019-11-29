@@ -22,4 +22,11 @@ class UserRepository extends EntityRepository
             ->getQuery()->getResult()
             ;
     }
+
+    public function liste()
+    {
+        return $this->createQueryBuilder('u')
+                    ->orderBy('u.username','ASC')
+            ;
+    }
 }

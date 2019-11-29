@@ -1,16 +1,77 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}{{ parent() }} Gestion des utilisateurs{% endblock %}
 {% block body %}
-    <h1>User creation</h1>
+    <section class="admin-content">
+        <div class="bg-dark">
+            <div class="container  m-b-30">
+                <div class="row">
+                    <div class="col-12 text-white p-t-40 p-b-90">
+                        <h4 class="">  Gestion des utilisateurs</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        <div class="container  pull-up">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card m-b-30">
+                        <div class="card-header">
+                            <h5 class="m-b-0">Enregistrement</h5>
+                        </div>
+                        <div class="card-body ">
+                            {{ form_start(form)}}
+                            <div class="form-row">
+                                <div class="col-12 form-group">
+                                    {{ form_widget(form.email)}}
+                                    {{ form_errors(form.email)}}
+                                </div>
+                                <div class="col-12 form-group">
+                                    {{ form_widget(form.username)}}
+                                    {{ form_errors(form.username) }}
+                                </div>
+                                <div class="col-12 form-group">
+                                    {{ form_widget(form.plainPassword.first,{'attr':{'class':"form-control",'placeholder':"Mot de passe"}})}}
+                                    {{ form_errors(form.plainPassword.first) }}
+                                </div>
+                                <div class="col-12 form-group">
+                                    {{ form_widget(form.plainPassword.second,{'attr':{'class':"form-control",'placeholder':"Répéter le mot de passe"}})}}
+                                    {{ form_errors(form.plainPassword.first) }}
+                                </div>
+                                <div class="col-12">
+                                    Roles
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-12 custom-control custom-checkbox">
+                                        {{ form_widget(form.roles.0,{'attr':{'class':"custom-control-input"}})}}
+                                        <label class="custom-control-label" for="appbundle_user_roles_0">Utilisateur</label>
+                                    </div>
+                                    <div class="col-12 custom-control custom-checkbox">
+                                        {{ form_widget(form.roles.1,{'attr':{'class':"custom-control-input"}})}}
+                                        <label class="custom-control-label" for="appbundle_user_roles_1">Administrateur</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    {{ form_widget(form.enabled)}}
+                                    <label class="custom-control-label" for="appbundle_user_enabled">Activer</label>
+                                </div>
+                            </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-primary">Enregistrer</button>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_user_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src='{{ absolute_url(asset('ressources/assets/bundles/ba78fede76f682cd388ed2abbfd1e1568e76f8a4.js')) }}'></script>
 {% endblock %}

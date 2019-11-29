@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,18 +25,20 @@ class UserType extends AbstractType
             ->add('username', TextType::class, array(
               'attr'  => array(
                   'class' => 'form-control',
-                  'autocomplete'  => 'off'
+                  'autocomplete'  => 'off',
+                  'placeholder'=>"Nom utilisateur"
               )
         ))
             //->add('usernameCanonical')
             ->add('email', EmailType::class, array(
               'attr'  => array(
                   'class' => 'form-control',
-                  'autocomplete'  => 'off'
+                  'autocomplete'  => 'off',
+                  'placeholder'=>"Adresse email"
               )
         ))
             //->add('emailCanonical')
-            ->add('enabled')
+            ->add('enabled',CheckboxType::class,['attr'=>['class'=>"custom-control-input"]])
             //->add('salt')
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,

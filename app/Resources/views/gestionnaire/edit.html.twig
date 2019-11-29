@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }} Gestion des districts{% endblock %}
+{% block body %}
+    <section class="admin-content">
+        <div class="bg-dark">
+            <div class="container  m-b-30">
+                <div class="row">
+                    <div class="col-12 text-white p-t-40 p-b-90">
+                        <h4 class="">  Gestion des districts</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container  pull-up">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card m-b-30">
+                        <div class="card-header">
+                            <h5 class="m-b-0">Liste des districts</h5>
+                        </div>
+                        <div class="card-body ">
+                            <div class="table-responsive p-t-10">
+                                <table id="example" class="table   " style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <td>ID</td>
+                                        <td>Users</td>
+                                        <td>Regions</td>
+                                        <td>Noms</td>
+                                        <td>Actions</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for gestionnaire in gestionnaires %}
+                                        <tr>
+                                            <td>{{ loop.index }}
+                                            <td>{{ gestionnaire.user.username }}</td>
+                                            <td>{{ gestionnaire.region.nom }}</td>
+                                            <td>{{ gestionnaire.nom }} {{ gestionnaire.prenoms }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ path('admin_gestionnaire_edit', {'slug': gestionnaire.slug}) }}" title="Modifier le gestionnaire"><i class="fa fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!--widget card ends-->
+
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="card m-b-30">
+                        <div class="card-header">
+                            <h5 class="m-b-0">Modification</h5>
+                        </div>
+                        <div class="card-body ">
+                            {{ form_start(edit_form)}}
+                            <div class="form-row">
+                                <div class="col-12 form-group">
+                                    {{ form_widget(edit_form.region)}}
+                                    {{ form_errors(edit_form.region)}}
+                                </div>
+                                <div class="col-12 form-group">
+                                    {{ form_widget(edit_form.user)}}
+                                    {{ form_errors(edit_form.user) }}
+                                </div>
+                                <div class="col-12 form-group">
+                                    {{ form_widget(edit_form.nom)}}
+                                    {{ form_errors(edit_form.nom) }}
+                                </div>
+                                <div class="col-12 form-group">
+                                    {{ form_widget(edit_form.prenoms)}}
+                                    {{ form_errors(edit_form.prenoms) }}
+                                </div>
+                                <div class="col-12 form-group">
+                                    {{ form_widget(edit_form.contact)}}
+                                    {{ form_errors(edit_form.contact) }}
+                                </div>
+                            </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-primary">Modifier</button>
+                            </div>
+                            {{ form_end(edit_form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src='{{ absolute_url(asset('ressources/assets/bundles/ba78fede76f682cd388ed2abbfd1e1568e76f8a4.js')) }}'></script>
+{% endblock %}
