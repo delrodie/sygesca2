@@ -1,0 +1,380 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }} Genres  {% if region %} de la region de "<strong>{{ region.nom }}</strong>"{% endif %}{% endblock %}
+{% block body %}
+	<div class="admin-content">
+		<div class="container p-t-20">
+			<div class="row">
+				<div class="col-8 m-b-30 mt-5">
+					<h3>Statistqiues selon le genre {% if region %} de la region de "<strong>{{ region.nom }}</strong>"{% endif %}</h3>
+				</div>
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-12"><h5>Total</h5></div>
+						<div class="col-md-4">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">TOTAUX </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ total|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{100|round}}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Masculin </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ nombre_masculin|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{pourcentage_masculin|round}}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Feminin </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ nombre_feminin|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{ pourcentage_feminin|round }}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12"><h5>Par statut (<span class="text-primary">Adulte</span> / <span class="text-danger">Jeune</span>)</h5></div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Hommes </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600"><span style="color: blue">{{ nombre_homme|number_format(0,'','.')}}</span></h1>
+									<div class="h6">
+										<span class="text-success">{{ pourcentage_homme|round }}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted " style="color: blue">Femmes </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600"><span style="color: blue">{{ nombre_femme|number_format(0,'','.')}}</span></h1>
+									<div class="h6">
+										<span class="text-success">{{ pourcentage_femme|round }}%  </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Garçons  </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600 text-secondary">{{ nombre_garcon|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success">{{ pourcentage_garcon|round }}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Filles  </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600 text-secondary">{{ nombre_fille|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{ pourcentage_fille|round }}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12"><h5>Louveteaux</h5></div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Louvetiers </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ nombre_louveteau_H|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{pourcentage_louvetier|round}}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Louvetieres </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ nombre_louveteau_F|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{ pourcentage_louvetiere|round }}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Louveteaux </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600"><span style="color: #d6d116">{{ nombre_louveteau_G|number_format(0,'','.')}}</span></h1>
+									<div class="h6">
+										<span class="text-success">{{ pourcentage_louveteau|round }}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted " style="color: blue">Louvettes </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600"><span style="color: #d6d116">{{ nombre_louveteau_L|number_format(0,'','.')}}</span></h1>
+									<div class="h6">
+										<span class="text-success">{{ pourcentage_louvette|round }}%  </span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12"><h5>Eclaireurs</h5></div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Troupiers </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ nombre_troupier|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{pourcentage_troupier|round}}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Troupières </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ nombre_troupiere|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{ pourcentage_troupiere|round }}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Eclaireurs </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600"><span style="color: green">{{ nombre_eclaireur|number_format(0,'','.')}}</span></h1>
+									<div class="h6">
+										<span class="text-success">{{ pourcentage_eclaireur|round }}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted " style="color: blue">Eclaireuses </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600"><span style="color: green">{{ nombre_eclaireuse|number_format(0,'','.')}}</span></h1>
+									<div class="h6">
+										<span class="text-success">{{ pourcentage_eclaireuse|round }}%  </span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12"><h5>Cheminots</h5></div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Safouins </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ nombre_safouin|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{pourcentage_safouin|round}}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Safouin"e"s </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ nombre_safouine|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{ pourcentage_safouine|round }}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Cheminots </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600"><span style="color: darkorange">{{ nombre_cheminot|number_format(0,'','.')}}</span></h1>
+									<div class="h6">
+										<span class="text-success">{{ pourcentage_cheminot|round }}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted " style="color: blue">Cheminot"e"s </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600"><span style="color: darkorange">{{ nombre_cheminote|number_format(0,'','.')}}</span></h1>
+									<div class="h6">
+										<span class="text-success">{{ pourcentage_cheminote|round }}%  </span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12"><h5>Routiers</h5></div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Coordinateurs </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ nombre_coordinateur|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{pourcentage_coordinateur|round}}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Coordinatrices </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ nombre_coordinatrice|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{ pourcentage_coordinatrice|round }}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Routiers </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600"><span style="color: red">{{ nombre_routier|number_format(0,'','.')}}</span></h1>
+									<div class="h6">
+										<span class="text-success">{{ pourcentage_routier|round }}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted " style="color: blue">Routières </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600"><span style="color: red">{{ nombre_routiere|number_format(0,'','.')}}</span></h1>
+									<div class="h6">
+										<span class="text-success">{{ pourcentage_routiere|round }}%  </span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}
+

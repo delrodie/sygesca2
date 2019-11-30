@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Utilities\GestionScout;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
@@ -16,6 +17,22 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $user =$this->getUser();
+
+        // Recueration des roles
+        $roles[]=$user->getRoles();
+        if ($roles[0][0] =="ROLE_USER"){
+            $gestionnaire = $em->getRepository("AppBundle:Gestionnaire")->findOneBy(['user'=>$user]);
+
+            if ($gestionnaire == null){
+                throw new AccessDeniedException();
+            }else{
+                $region = $em->getRepository("AppBundle:Region")->findOneBy(['id'=>$gestionnaire->getRegion()]);
+                return $this->redirectToRoute("stat_region_index",['region'=>$region->getSlug()]);
+            }
+        }
+
+
         $regions = $em->getRepository("AppBundle:Region")->findOnlyRegion();
 
         return $this->render('default/index.html.twig', [

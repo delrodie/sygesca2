@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }} Gestion des scouts{% endblock %}
+{% block body %}
+    <section class="admin-content">
+        <div class="bg-dark">
+            <div class="container  m-b-30">
+                <div class="row">
+                    <div class="col-12 text-white p-t-40 p-b-90">
+                        <h4 class="">  Gestion des scouts</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container  pull-up">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card m-b-30">
+                        <div class="card-header">
+                            <h5 class="m-b-0">{{ scout.nom }} {{ scout.prenoms }} (<span style="color: darkred">{{ scout.matricule }}</span>)</h5>
+                        </div>
+                        <div class="card-body ">
+                            <div class="form-row">
+                                <div class="col-3 form-group">
+                                    <label for="" style="color: blue">Matricule</label>
+                                    <input type="text" class="form-control" value="{{ scout.matricule }}" readonly>
+                                </div>
+                                <div class="col-5 form-group">
+                                    <label for="" style="color: blue">Groupe</label>
+                                    <input type="text" class="form-control" value="{{ scout.groupe.paroisse }}" readonly>
+                                </div>
+                                <div class="col-2 form-group">
+                                    <label for="" style="color: blue">Statut</label>
+                                    <input type="text" class="form-control" value="{{ scout.statut.libelle }}" readonly>
+                                </div>
+                                <div class="col-2 form-group">
+                                    <label for="" style="color: blue">Sexe</label>
+                                    <input type="text" class="form-control" value="{{ scout.sexe }}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-6 form-group">
+                                    <label for="" style="color: blue">Nom & prenoms</label>
+                                    <input type="text" class="form-control" value="{{ scout.nom }} {{ scout.prenoms }}" readonly>
+                                </div>
+                                <div class="col-2 form-group">
+                                    <label for="" style="color: blue">Date</label>
+                                    <input type="text" class="form-control" value="{{ scout.datenaiss|date('d-m-Y') }}" readonly>
+                                </div>
+                                <div class="col-4 form-group">
+                                    <label for="" style="color: blue">Lieu de naissance</label>
+                                    <input type="text" class="form-control" value="{{ scout.lieunaiss }}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-4 form-group">
+                                    <label for="" style="color: blue">Contact</label>
+                                    <input type="text" class="form-control" value="{{ scout.contact }}" readonly>
+                                </div>
+                                <div class="col-4 form-group">
+                                    <label for="" style="color: blue">Urgence</label>
+                                    <input type="text" class="form-control" value="{{ scout.contactParent }}" readonly>
+                                </div>
+                                <div class="col-4 form-group">
+                                    <label for="" style="color: blue">Email</label>
+                                    <input type="text" class="form-control" value="{{ scout.email }}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-4 form-group">
+                                    <label for="" style="color: blue">Fonction</label>
+                                    <input type="text" class="form-control" value="{{ scout.fonction }}" readonly>
+                                </div>
+                                {% if scout.branche %}
+                                    <div class="col-4 form-group">
+                                        <label for="" style="color: blue">Branche</label>
+                                        <input type="text" class="form-control" value="{{ scout.branche }}" readonly>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group text-right">
+                                <a href="{{ path('liste_scout_carte', {'matricule': scout.matricule}) }}" class="btn btn-success">Carte</a>
+								<a href="{{ path('admin_scout_index')}}" class="btn btn-secondary">Liste</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card m-b-30">
+                        <div class="card-header">
+                            <h6>Historique </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive p-t-10">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Année</th>
+                                        <th>Carte</th>
+                                        <th>Fonction</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for cotisation in scout.cotisations %}
+                                        <tr>
+                                            <td>{{ cotisation.annee }}</td>
+                                            <td>{{ cotisation.carte }}</td>
+                                            <td>{{ cotisation.fonction }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src='{{ absolute_url(asset('ressources/assets/bundles/ba78fede76f682cd388ed2abbfd1e1568e76f8a4.js')) }}'></script>
+{% endblock %}

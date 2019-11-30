@@ -1,0 +1,187 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ parent() }} Statistiques {% if region %}de la région de  region.nom{% endif %} {% endblock %}
+{% block body %}
+	<div class="admin-content">
+		<div class="container p-t-20">
+			<div class="row">
+				<div class="col-8 m-b-30 mt-5">
+					{% if region %}
+						<h3>Statistiques de la région de : "<strong>{{ region.nom }}</strong>"</h3>
+					{% else %}
+						<h3>Statistiques globales</h3>
+					{% endif %}
+				</div>
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Louveteaux </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ louveteau|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{ loup_pourcent|round}}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Eclaireurs </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ eclaireur|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{ eclai_pourcent|round}}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Cheminots </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ cheminot|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{ chemin_pourcent|round}}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Routiers </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ routier|number_format(0,'','.')}}</h1>
+									<div class="h6">
+										<span class="text-success"> {{ route_pourcent|round}}% </span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="card m-b-30">
+								<div class="card-body">
+									<div class="row">
+										<div class="col my-auto">
+											<div class="h6 text-muted ">Effectif total 2020 </div>
+										</div>
+									</div>
+									<h1 class="display-4 fw-600">{{ total_scout|number_format(0,'','.')}}</h1>
+									<div class="h6">
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="col-lg-6">
+							<div class="row">
+								<div class="col-lg-6">
+									<!--widget card begin-->
+									<div class="card m-b-30">
+										<div class="card-body">
+											<div class="row">
+												<div class="col my-auto">
+													<div class="h6 text-muted ">Adultes </div>
+												</div>
+											</div>
+											<h1 class="display-4 fw-600">{{ total_adulte|number_format(0,'','.')}}</h1>
+											<div class="h6">
+												<span class="text-success"> {{ adulte_pourcent|round}}% </span>
+											</div>
+										</div>
+									</div>
+									<!--widget card ends-->
+
+								</div>
+								<div class="col-lg-6">
+									<!--widget card begin-->
+									<div class="card m-b-30">
+										<div class="card-body">
+											<div class="row">
+												<div class="col my-auto">
+													<div class="h6 text-muted ">Jeunes </div>
+												</div>
+											</div>
+											<h1 class="display-4 fw-600">{{ total_jeune|number_format(0,'','.')}}</h1>
+											<div class="h6">
+												<span class="text-success"> {{ jeune_porcent|round}}% </span>
+											</div>
+										</div>
+									</div>
+									<!--widget card ends-->
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+
+				<div class="col-md-12">
+					<div class="card m-b-30">
+						<div class="card-header">
+							<h5 class="m-b-0">
+								<i class="mdi mdi-checkbox-intermediate"></i> Statistiques par district
+							</h5>
+
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+
+								<table class="table table-hover ">
+									<thead>
+									<tr>
+										<th>District</th>
+										<th>Totaux</th>
+										<th>Jeunes</th>
+										<th>Adultes</th>
+										<th>Femmes</th>
+										<th>Hommes</th>
+									</tr>
+									</thead>
+									<tbody>
+									{% for district in districts %}
+										<tr>
+											<td class="text-left">{{ district.nom }}</td>
+											<td class="text-center">{{ render(url('totaux_district',{'slug':district.slug})) }}</td>
+											<td class="text-center">{{ render(url('totaux_district_statut',{'statut':'Jeune','slug':district.slug})) }}</td>
+											<td class="text-center">{{ render(url('totaux_district_statut',{'statut':'Adulte','slug':district.slug})) }}</td>
+											<td class="text-center">{{ render(url('totaux_district_sexe',{'sexe':'FEMME','slug':district.slug})) }}</td>
+											<td class="text-center">{{ render(url('totaux_district_sexe',{'sexe':'HOMME','slug':district.slug})) }}</td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+

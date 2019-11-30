@@ -29,7 +29,7 @@
     </div>
     <div class="admin-sidebar-wrapper js-scrollbar">
         <ul class="menu">
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_USER') %}
                 <li class="menu-item active ">
                     <a href="#" class="open-dropdown menu-link">
                     <span class="menu-label">
@@ -55,16 +55,18 @@
                             </a>
                         </li>
 
-                        <li class="menu-item ">
-                            <a href='{{ absolute_url(path('tbord_region'))}}' class=' menu-link'>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="menu-item ">
+                                <a href='{{ absolute_url(path('tbord_region'))}}' class=' menu-link'>
                             <span class="menu-label">
                                 <span class="menu-name">Regions</span>
                             </span>
-                                <span class="menu-icon">
+                                    <span class="menu-icon">
                                 <i class="icon-placeholder fe fe-activity"></i>
                             </span>
-                            </a>
-                        </li>
+                                </a>
+                            </li>
+                        {% endif %}
 
                         <li class="menu-item ">
                             <a href='{{ absolute_url(path('genre_index'))}}' class=' menu-link'>
@@ -77,21 +79,23 @@
                             </a>
                         </li>
 
-                        <li class="menu-item ">
-                            <a href='{{ absolute_url(path('cartographie_indx'))}}' class=' menu-link'>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="menu-item ">
+                                <a href='{{ absolute_url(path('cartographie_indx'))}}' class=' menu-link'>
                             <span class="menu-label">
                                 <span class="menu-name">Cartographie</span>
                             </span>
-                                <span class="menu-icon">
+                                    <span class="menu-icon">
                                 <i class="icon-placeholder fe fe-activity"></i>
                             </span>
-                            </a>
-                        </li>
+                                </a>
+                            </li>
+                        {% endif %}
 
                     </ul>
                 </li>
             {% endif %}
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_USER') %}
                 <li class="menu-item ">
                     <a href="#" class="open-dropdown menu-link">
                     <span class="menu-label">

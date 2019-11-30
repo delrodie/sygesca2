@@ -7,7 +7,9 @@ use AppBundle\Utilities\GestionCotisation;
 use AppBundle\Utilities\GestionScout;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Scout controller.
@@ -24,7 +26,20 @@ class ScoutController extends Controller
      */
     public function indexAction(GestionScout $gestionScout)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();$user =$this->getUser();
+
+        // Recueration des roles
+        $roles[]=$user->getRoles();
+        if ($roles[0][0] =="ROLE_USER"){
+            $gestionnaire = $em->getRepository("AppBundle:Gestionnaire")->findOneBy(['user'=>$user]);
+
+            if ($gestionnaire == null){
+                throw new AccessDeniedException();
+            }else{
+                $region = $em->getRepository("AppBundle:Region")->findOneBy(['id'=>$gestionnaire->getRegion()]);
+                return $this->redirectToRoute("liste_scout_index",['region'=>$region->getSlug()]);
+            }
+        }
 
         $scouts = $em->getRepository('AppBundle:Scout')->findAll();
 
