@@ -1,0 +1,3 @@
+{% for region in regions  %}
+	<li><a href="{{ path('extraction_region_show', {'region': region.slug}) }}">{{ region.nom }}</a></li>
+{% endfor %}

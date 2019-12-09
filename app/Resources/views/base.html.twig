@@ -134,14 +134,18 @@
                 <!--submenu-->
                 <ul class="sub-menu">
 
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="menu-item ">
+                            <a href="{{ absolute_url(path('extraction_index')) }}" class=' menu-link'>
+                                <span class="menu-label"><span class="menu-name">Extraction</span></span>
+                                <span class="menu-icon"><i class="icon-placeholder fas fa-file-export"></i></span>
+                            </a>
+                        </li>
+                    {% endif %}
                     <li class="menu-item ">
                         <a href="{{ absolute_url(path('recherche_index')) }}" class=' menu-link'>
-                            <span class="menu-label">
-                                <span class="menu-name">Carte provisoire</span>
-                            </span>
-                            <span class="menu-icon">
-                                <i class="icon-placeholder fa fa-id-card"></i>
-                            </span>
+                            <span class="menu-label"><span class="menu-name">Carte provisoire</span></span>
+                            <span class="menu-icon"><i class="icon-placeholder fa fa-id-card"></i></span>
                         </a>
                     </li>
 

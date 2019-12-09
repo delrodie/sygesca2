@@ -1,0 +1,133 @@
+{% extends 'extraction_layout.html.twig' %}
+{% block title %}{{ parent() }} Liste des participants de {{ region.nom }} {% endblock %}
+{% block body %}
+	<div class="content-wrapper">
+		<section class="content-header">
+			<h1>
+				Liste des scouts de la region de {{ region.nom }} -
+				<small><span class="text-success">{{ annee }}</span> </small>
+			</h1>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
+				<li class="breadcrumb-item"><a href="#">Region</a></li>
+				<li class="breadcrumb-item active">{{ region.nom|title }}</li>
+			</ol>
+		</section>
+		<section class="content">
+			<div class="row">
+				<div class="col-12">
+					<div class="box">
+						<div class="box-body">
+							<div class="row">
+								<div class="col-md-6 col-12">
+									<div class="form-group">
+										<label>Districts</label>
+										<form action="{{ path('extraction_district_show', {'region': region.slug}) }}">
+											<select name="district" class="form-control select2 w-p100" onchange="this.form.submit()">
+												<option selected="selected" disabled="disabled">-- Selectionnez le district --</option>
+												{% for district in districts %}
+													<option value="{{ district.id }}">{{ district.nom }}</option>
+												{% endfor %}
+											</select>
+										</form>
+									</div>
+								</div>
+								<div class="col-md-6 col-12">
+									<div class="form-group">
+										<label>Paroisses</label>
+										<form action="#">
+											<select name="paroisse" class="form-control select2 w-p100" onchange="this.form.submit()">
+												<option selected="selected">-- Selectionnez le groupe --</option>
+												{% for groupe in groupes %}
+													<option value="{{ groupe.slug }}">{{ groupe.paroisse }}</option>
+												{% endfor %}
+											</select>
+										</form>
+									</div>
+								</div>
+							</div>
+							<!-- /.row -->
+						</div>
+						<!-- /.box-body -->
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+
+					<div class="box box-solid bg-dark">
+						<div class="box-header with-border">
+							<h6 class="box-subtitle">Liste des participants</h6>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<div class="table-responsive">
+								<table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+									<thead>
+									<tr>
+										<th>ID</th>
+										<th>DISTRICT</th>
+										<th>PAROISSE</th>
+										<td>MATRICULES</td>
+										<td>CARTES</td>
+										<th>NOM & PRENOMS</th>
+										<th>SEXE</th>
+										<th>STATUT</th>
+										<th>FONCTION</th>
+									</tr>
+									</thead>
+									<tbody>
+									{% for scout in scouts %}
+										<tr>
+											<td>{{ loop.index }}</td>
+											<td>{{ scout.groupe.district.nom }}</td>
+											<td>{{ scout.groupe.paroisse }}</td>
+											<td>{{ scout.matricule }}</td>
+											<td>{{ scout.carte }}</td>
+											<td>{{ scout.nom|upper }} {{ scout.prenoms|title }}</td>
+											<td>{{ scout.sexe }}</td>
+											<td>{{ scout.statut.libelle }}</td>
+											<td>{{ scout.fonction|title }}</td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- /.box-body -->
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('extraction/assets/vendor_components/select2/dist/css/select2.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('extraction/css/master_style.css') }}">
+{% endblock %}
+{% block javascripts %}
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_components/jquery/dist/jquery.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_components/popper/dist/popper.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_components/bootstrap/dist/js/bootstrap.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_components/datatables.net/js/jquery.dataTables.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_components/datatables.net-bs/js/dataTables.bootstrap.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_components/jquery-slimscroll/jquery.slimscroll.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_components/fastclick/lib/fastclick.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/js/template.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/js/demo.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/buttons.flash.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_plugins/DataTables-1.10.15/ex-js/jszip.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_plugins/DataTables-1.10.15/ex-js/pdfmake.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_plugins/DataTables-1.10.15/ex-js/vfs_fonts.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/buttons.html5.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/assets/vendor_plugins/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js')) }}"></script>
+	<script src="{{ absolute_url(asset('extraction/js/pages/data-table.js')) }}"></script>
+
+	<script src="{{ asset('extraction/assets/vendor_components/select2/dist/js/select2.full.js') }}"></script>
+	<script>
+        $('.select2').select2();
+	</script>
+{% endblock %}
