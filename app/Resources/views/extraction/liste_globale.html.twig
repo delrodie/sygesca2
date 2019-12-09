@@ -28,9 +28,12 @@
 									<tr>
 										<th>ID</th>
 										<th>REGIONS</th>
+										<th>DISTRICTS</th>
+										<th>GROUPES</th>
 										<td>MATRICULES</td>
 										<td>CARTES</td>
 										<th>NOM & PRENOMS</th>
+										<th>DATE DE NAISSANCE</th>
 										<th>SEXE</th>
 										<th>STATUT</th>
 										<th>FONCTION</th>
@@ -41,9 +44,12 @@
 										<tr>
 											<td>{{ loop.index }}
 											<td>{{ scout.groupe.district.region.nom }}</td>
+											<td>{{ scout.groupe.district.nom }}</td>
+											<td>{{ scout.groupe.paroisse }}</td>
 											<td>{{ scout.matricule }}</td>
 											<td>{{ scout.carte }}</td>
 											<td>{{ scout.nom }} {{ scout.prenoms }}</td>
+											<td>{{ scout.datenaiss|date('d-m-Y') }}</td>
 											<td>{{ scout.sexe }}</td>
 											<td>{{ scout.statut.libelle }}</td>
 											<td>{{ scout.fonction|title }}</td>
