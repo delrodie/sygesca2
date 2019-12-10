@@ -107,11 +107,18 @@ class DistrictController extends Controller
             return $this->redirectToRoute('admin_district_index');
         }
 
+        // les groupes appartenant au district
+        $groupes = $em->getRepository("AppBundle:Groupe")->findBy(['district'=>$district->getId()]);
+
+        if ($groupes) $suppression = true;
+        else $suppression = null;
+
         return $this->render('district/edit.html.twig', array(
             'district' => $district,
             'districts' => $districts,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'suppression' => $suppression,
         ));
     }
 

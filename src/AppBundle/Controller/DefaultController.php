@@ -63,14 +63,18 @@ class DefaultController extends Controller
         $cheminot = $em->getRepository("AppBundle:Scout")->getNombreTotalParBranche('Jeune',$generation,$gestionScout->cotisation(),$slug);
         $routier = $em->getRepository("AppBundle:Scout")->getNombreTotalParBranche('Jeune',$route,$gestionScout->cotisation(),$slug);
 
+        $mouchard = 0; $mouchard_jeune = 0;
         if (!$total_jeune){
             $total_jeune = 1;
+            $mouchard_jeune = 1;
         }
+
         $regions = $em->getRepository("AppBundle:Region")->findOnlyRegion();
         // Total inscrits
         $nombre_scout = $em->getRepository("AppBundle:Scout")->getNombreByRegion($slug, $gestionScout->cotisation());
         if (!$nombre_scout){
             $nombre_scout = 1;
+            $mouchard = 1;
         }
 
         $loup_pourcent = $louveteau*100/$total_jeune;
@@ -100,6 +104,8 @@ class DefaultController extends Controller
             'jeune_porcent' => $jeune_porcent,
             'adulte_pourcent' => $adulte_pourcent,
             'districts' => $districts,
+            'mouchard' => $mouchard,
+            'mouchard_jeune' => $mouchard_jeune,
         ]);
     }
 }

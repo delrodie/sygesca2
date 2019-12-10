@@ -71,6 +71,13 @@
                                 <button class="btn btn-primary">Modifier</button>
                             </div>
                             {{ form_end(edit_form) }}
+                            {% if suppression is null %}
+                                <div class="form-group text-left">
+                                    {{ form_start(delete_form, {'attr': {'onsubmit': 'return confirm("Êtes-vous sur de vouloir supprimer cette fonction ?");'}}) }}
+                                    <button class="btn btn-danger"><i class="fa fa-trash"></i> Suprimer</button>
+                                    {{ form_end(delete_form) }}
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

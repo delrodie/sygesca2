@@ -107,11 +107,17 @@ class GroupeController extends Controller
             return $this->redirectToRoute('admin_groupe_index');
         }
 
+        // nombre de scouts pour le groupe
+        $scouts = $em->getRepository("AppBundle:Scout")->findBy(['groupe'=>$groupe->getId()]); //dump($scouts);die();
+        if ($scouts) $suppression = true;
+        else $suppression =  null;
+
         return $this->render('groupe/edit.html.twig', array(
             'groupe' => $groupe,
             'groupes' => $groupes,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'suppression' => $suppression,
         ));
     }
 

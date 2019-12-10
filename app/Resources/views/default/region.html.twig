@@ -95,7 +95,12 @@
 											<div class="h6 text-muted ">Effectif total 2020 </div>
 										</div>
 									</div>
-									<h1 class="display-4 fw-600">{{ total_scout|number_format(0,'','.')}}</h1>
+									{% if  mouchard == 1 %}
+										<h1 class="display-4 fw-600">{{ render(url('statistiques_total'))|number_format('0','','.')}} <span class="text-danger">*</span>		</h1>
+										<p><em> Effectif de tous les scouts catholiques de Côte d'Ivoire <strong>Malheureusement cette region n'a pas encore d'inscrit</strong></em></p>
+									{% else %}
+										<h1 class="display-4 fw-600">{{ total_scout|number_format(0,'','.')}}</h1>
+									{% endif %}
 									<div class="h6">
 									</div>
 								</div>
@@ -131,10 +136,17 @@
 													<div class="h6 text-muted ">Jeunes </div>
 												</div>
 											</div>
-											<h1 class="display-4 fw-600">{{ total_jeune|number_format(0,'','.')}}</h1>
-											<div class="h6">
-												<span class="text-success"> {{ jeune_porcent|round}}% </span>
-											</div>
+											{% if mouchard_jeune == 1 %}
+												<h1 class="display-4 fw-600">{{ 0|number_format(0,'','.')}}</h1>
+												<div class="h6">
+													<span class="text-success"> {{ 0|round}}% </span>
+												</div>
+											{% else %}
+												<h1 class="display-4 fw-600">{{ total_jeune|number_format(0,'','.')}}</h1>
+												<div class="h6">
+													<span class="text-success"> {{ jeune_porcent|round}}% </span>
+												</div>
+											{% endif %}
 										</div>
 									</div>
 									<!--widget card ends-->

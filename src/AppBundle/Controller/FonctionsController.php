@@ -107,11 +107,17 @@ class FonctionsController extends Controller
             return $this->redirectToRoute('admin_fonction_index');
         }
 
+        // Liste des fonctions
+        $scouts = $em->getRepository("AppBundle:Scout")->findBy(['fonction'=>$fonction->getLibelle()]);
+        if ($scouts) $suppression = true;
+        else $suppression =  null;
+
         return $this->render('fonctions/edit.html.twig', array(
             'fonction' => $fonction,
             'fonctions' => $fonctions,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'suppression' => $suppression,
         ));
     }
 

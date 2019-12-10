@@ -104,14 +104,20 @@ class RegionController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_region_edit', array('id' => $region->getId()));
+            return $this->redirectToRoute('admin_region_index');
         }
+
+        // nombre de districts appartenant a la region
+        $districts = $em->getRepository("AppBundle:District")->findBy(['region'=>$region->getId()]);
+        if ($districts) $supression = true;
+        else $supression = null; //dump($supression);die();
 
         return $this->render('region/edit.html.twig', array(
             'region' => $region,
             'regions' => $regions,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'supression' => $supression,
         ));
     }
 
