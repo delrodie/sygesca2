@@ -28,4 +28,46 @@ class StatistiqueRegionController extends Controller
             'annee' => $annee
         ]);
     }
+
+    /**
+     * @Route("/{region}", name="region_objectif")
+     * @Method("GET")
+     */
+    public function objectifAction($region, GestionScout $gestionScout)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $annee = $gestionScout->cotisation();
+        $objectif = $em->getRepository('AppBundle:Objectif')->findOneBy(['region'=>$region,'annee'=>$annee]);
+        if ($objectif) $nombre = $objectif->getValeur();
+        else $nombre = 0;
+
+        return $this->render("default/nombre.html.twig",[
+            'nombre' => $nombre,
+        ]);
+    }
+
+    /**
+     * @Route("/{slug}/taux", name="region_taux")
+     * @Method("GET")
+     */
+    public function tauxAction($slug, GestionScout $gestionScout)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cotisation = $gestionScout->cotisation();
+        $region = $em->getRepository("AppBundle:Region")->findOneBy(['slug'=>$slug]);
+        $nombre_scout = $em->getRepository("AppBundle:Scout")->getNombreByRegion($slug, $cotisation);
+        $objectif = $em->getRepository("AppBundle:Objectif")->findOneBy(['region'=>$region->getId(),'annee'=>$cotisation]);
+        if ($objectif){
+            if ($objectif->getValeur() != 0)$taux = $nombre_scout * 100 / $objectif->getValeur();
+            else $taux = null;
+        }else{
+            $taux = null;
+        }
+        $total = $em->getRepository("AppBundle:Scout")->getNmbreTotal($cotisation);
+
+        return $this->render('default/nombre_objectif.html.twig',[
+            'nombre' => $nombre_scout,
+            'taux' => round($taux),
+        ]);
+    }
 }

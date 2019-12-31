@@ -75,6 +75,7 @@
 													<th>Region</th>
 													<th>Objectifs</th>
 													<th>Inscrits</th>
+													<th>Taux</th>
 													<th>Jeunes</th>
 													<th>Adultes</th>
 													<th>Femmes</th>
@@ -85,8 +86,8 @@
 												{% for region in regions %}
 													<tr style="font-size: 0.9em">
 														<td class="text-left">{{ region.nom }}</td>
-														<td class="text-center"></td>
-														<td class="text-center">{{ render(url('totaux_region',{'slug': region.slug})) }}</td>
+														<td class="text-center">{{ render((url('region_objectif',{'region': region.id}))) }}</td>
+														{{ render(url('region_taux',{'slug': region.slug})) }}
 														<td class="text-center">{{ render(url('totaux_region_statut',{'statut':'Jeune', 'slug':region.slug})) }}</td>
 														<td class="text-center">{{ render(url('totaux_region_statut',{'statut':'Adulte', 'slug':region.slug})) }}</td>
 														<td class="text-center">{{ render(url('totaux_region_sexe',{'sexe': 'FEMME', 'slug': region.slug})) }}</td>

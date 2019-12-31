@@ -1,0 +1,8 @@
+<td class="text-center">{{ nombre|number_format(0,'','.') }}</td>
+<td class="text-center">
+	{% if taux %}
+		<span style="color: darkred; font-weight:bold">{{taux}}</span><span style="font-size: 0.85em;">%</span>
+	{% else %}
+		-
+	{% endif %}
+</td>
