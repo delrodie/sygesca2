@@ -62,7 +62,7 @@ class CinetpayController extends Controller
                 $cpm_designation = $CinetPay->_cpm_designation;
                 $buyer_name = $CinetPay->_buyer_name;
 
-                if ($cpm_result == '00'){
+                if ($cpm_result == '00'){ //dump($cpm_trans_status);die();
                     // requete  d'existence dans la table user_info
                     $userInfo = $em->getRepository("AppBundle:UserInfos")->findOneBy(['idTransaction'=>$cpmTransId]);
                     if ($userInfo){ //dump($cpm_amount);die();

@@ -99,7 +99,7 @@ class UserController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             //dump($user->getPassword());die();
-            if ($user->getPassword()>15){
+            if ($user->getPassword()<15){
                 //Encodage du mot de passe
                 $encoder = $this->container->get('security.password_encoder');
                 $encoded = $encoder->encodePassword($user, $user->getPassword());
