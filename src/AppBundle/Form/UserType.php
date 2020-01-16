@@ -51,6 +51,7 @@ class UserType extends AbstractType
             ->add('roles', ChoiceType::class, array(
               'choices' => array(
                 'UTILISATEUR '  => 'ROLE_USER',
+                'FINANCES '  => 'ROLE_FINANCE',
                 'ADMINISTRATEUR '  => 'ROLE_ADMIN',
               ),
               'attr'  => array(
