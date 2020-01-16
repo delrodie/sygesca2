@@ -11,6 +11,18 @@ namespace AppBundle\Repository;
 class CotisationRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
+     * @return array
+     */
+    public function findBySansRistourne()
+    {
+        return $this->createQueryBuilder('c')
+                    ->where('c.montantSansFrais IS NULL')
+                    ->orWhere('c.ristourne IS NULL')
+                    ->getQuery()->getResult()
+            ;
+    }
+
+    /**
      * @param $annee
      * @return mixed
      * @throws \Doctrine\ORM\NoResultException

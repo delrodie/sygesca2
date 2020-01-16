@@ -46,7 +46,7 @@ class GestionCotisation
 
     public function generatePrice()
     {
-        $cotisations = $this->em->getRepository('AppBundle:Cotisation')->findBy(['montantSansFrais'=>null]);
+        $cotisations = $this->em->getRepository('AppBundle:Cotisation')->findBySansRistourne();
         $finishTime = time() + 25;
         foreach($cotisations as $cotisation){
             $execTime = time();
