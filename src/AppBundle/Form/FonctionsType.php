@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,6 +18,7 @@ class FonctionsType extends AbstractType
         $builder
             ->add('libelle', TextType::class,['attr'=>['class'=>'form-control', 'placeholder'=>"Le libelle de la fonction", 'autcomplete'=>"off"]])
             ->add('montant', TextType::class,['attr'=>['class'=>'form-control', 'placeholder'=>'Le montant', 'autocomplete'=>'off']])
+            ->add('ristourne', IntegerType::class,['attr'=>['class'=>'form-control', 'placeholder'=>'La ristourne à verser', 'autocomplete'=>'off']])
             //->add('createdAt')->add('updatedAt')
         ;
     }

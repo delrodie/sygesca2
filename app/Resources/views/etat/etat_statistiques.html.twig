@@ -25,14 +25,7 @@
 											<h5 style="color: white">STATISTIQUES DES INSCRITS</h5>
 										</div>
 										<div class="col-md-3">
-											<form action="{{ path('etats_regionaux_show') }}" method="post">
-												<select name="region" id="region" class="form-control js-select2" onchange="this.form.submit()">
-													<option value="">-- Selectionnez la structure --</option>
-													{% for region in regions %}
-														<option value="{{ region.slug }}">{{ region.nom }}</option>
-													{% endfor %}
-												</select>
-											</form>
+
 										</div>
 									</div>
 								</div>

@@ -120,6 +120,31 @@
                     </ul>
                 </li>
             {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="menu-item ">
+                    <a href="#" class="open-dropdown menu-link">
+                    <span class="menu-label">
+                        <span class="menu-name">Finance
+                            <span class="menu-arrow"></span>
+                        </span>
+                    </span>
+                        <span class="menu-icon">
+                        <i class="icon-placeholder fa fa-money-bill"></i>
+                    </span>
+                    </a>
+                    <!--submenu-->
+                    <ul class="sub-menu">
+                        <li class="menu-item">
+                            <a href='{{ absolute_url(path('finance_liste')) }}' class=' menu-link'>
+                            <span class="menu-label">
+                                <span class="menu-name">Inscrits</span>
+                            </span>
+                                <span class="menu-icon"><i class="icon-placeholder fa fa-user-friends"></i></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
             <li class="menu-item">
                 <a href="#" class="open-dropdown menu-link">
                     <span class="menu-label">

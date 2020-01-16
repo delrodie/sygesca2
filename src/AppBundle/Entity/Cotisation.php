@@ -51,6 +51,20 @@ class Cotisation
     private $montant;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="montant_san_frais", type="integer", nullable=true)
+     */
+    private $montantSansFrais;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="ristourne", type="integer", nullable=true)
+     */
+    private $ristourne;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Scout", inversedBy="cotisations")
      * @ORM\JoinColumn(name="scout_id", referencedColumnName="id")
      */
@@ -186,4 +200,46 @@ class Cotisation
     {
         return $this->montant;
     }
+
+    /**
+     * Set montantSansFrais
+     *
+     * @param integer $montantSansFrais
+     *
+     * @return Cotisation
+     */
+    public function setMontantSansFrais($montantSansFrais)
+    {
+        $this->montantSansFrais = $montantSansFrais;
+
+        return $this;
+    }
+
+    /**
+     * Get montantSansFrais
+     *
+     * @return integer
+     */
+    public function getMontantSansFrais()
+    {
+        return $this->montantSansFrais;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRistourne()
+    {
+        return $this->ristourne;
+    }
+
+    /**
+     * @param int $ristourne
+     */
+    public function setRistourne($ristourne)
+    {
+        $this->ristourne = $ristourne;
+    }
+
+
 }

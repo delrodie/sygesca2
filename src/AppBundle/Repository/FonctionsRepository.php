@@ -10,5 +10,18 @@ namespace AppBundle\Repository;
  */
 class FonctionsRepository extends \Doctrine\ORM\EntityRepository
 {
-
+    /**
+     * @param $string
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findByLibelle($string)
+    {
+        return $this->createQueryBuilder('f')
+                    ->where('f.libelle LIKE :string')
+                    ->setParameter('string', $string)
+                    ->getQuery()->getResult()
+            ;
+    }
 }

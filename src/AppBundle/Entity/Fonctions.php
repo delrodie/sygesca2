@@ -36,6 +36,13 @@ class Fonctions
     private $montant;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="ristourne", type="integer", nullable=true)
+     */
+    private $ristourne;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="created_at", type="string", length=255, nullable=true)
@@ -154,5 +161,29 @@ class Fonctions
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set ristourne
+     *
+     * @param integer $ristourne
+     *
+     * @return Fonctions
+     */
+    public function setRistourne($ristourne)
+    {
+        $this->ristourne = $ristourne;
+
+        return $this;
+    }
+
+    /**
+     * Get ristourne
+     *
+     * @return integer
+     */
+    public function getRistourne()
+    {
+        return $this->ristourne;
     }
 }

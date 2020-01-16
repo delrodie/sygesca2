@@ -10,4 +10,19 @@ namespace AppBundle\Repository;
  */
 class CotisationRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param $annee
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function calculMontant($annee)
+    {
+        return $this->createQueryBuilder('c')
+                    ->select('sum(c.montantSansFrais)')
+                    ->where('c.annee = :annee')
+                    ->setParameter('annee', $annee)
+                    ->getQuery()->getSingleScalarResult()
+            ;
+    }
 }
