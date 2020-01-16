@@ -16,13 +16,99 @@ class CotisationRepository extends \Doctrine\ORM\EntityRepository
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function calculMontant($annee)
+    public function calculMontant($annee,$region=null)
     {
-        return $this->createQueryBuilder('c')
-                    ->select('sum(c.montantSansFrais)')
-                    ->where('c.annee = :annee')
-                    ->setParameter('annee', $annee)
-                    ->getQuery()->getSingleScalarResult()
+        if (!$region){
+            $q = $this->createQueryBuilder('c')
+                ->select('sum(c.montantSansFrais)')
+                ->where('c.annee = :annee')
+                ->setParameter('annee', $annee);
+        }else{
+            $q = $this->createQueryBuilder('c')
+                ->select('sum(c.montantSansFrais)')
+                ->join('c.scout', 's')
+                ->join('s.groupe', 'g')
+                ->join('g.district', 'd')
+                ->join('d.region', 'r')
+                ->where('r.slug = :region')
+                ->andWhere('c.annee = :annee')
+                ->setParameters([
+                    'annee' => $annee,
+                    'region' => $region,
+                ])
             ;
+        }
+        return $q->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @param $annee
+     * @param null $region
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function calculRistourne($annee,$region=null)
+    {
+        if (!$region){
+            $q = $this->createQueryBuilder('c')
+                ->select('sum(c.ristourne)')
+                ->where('c.annee = :annee')
+                ->setParameter('annee', $annee);
+        }else{
+            $q = $this->createQueryBuilder('c')
+                        ->select('sum(c.ristourne)')
+                        ->join('c.scout', 's')
+                        ->join('s.groupe', 'g')
+                        ->join('g.district', 'd')
+                        ->join('d.region', 'r')
+                        ->where('r.slug = :region')
+                        ->andWhere('c.annee = :annee')
+                        ->setParameters([
+                            'annee' => $annee,
+                            'region' => $region,
+                        ])
+                ;
+        }
+        return $q->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @param $annee
+     * @param $montant
+     * @param null $region
+     * @return mixed
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function calculRistourneByType($annee, $montant,$region=null)
+    {
+        if (!$region){
+            $q = $this->createQueryBuilder('c')
+                ->select('sum(c.ristourne)')
+                ->where('c.annee = :annee')
+                ->andWhere('c.ristourne = :montant')
+                ->setParameters([
+                    'annee' => $annee,
+                    'montant' => $montant
+                ]);
+        }else{
+            $q = $this->createQueryBuilder('c')
+                ->select('sum(c.ristourne)')
+                ->join('c.scout', 's')
+                ->join('s.groupe', 'g')
+                ->join('g.district', 'd')
+                ->join('d.region', 'r')
+                ->where('r.slug = :region')
+                ->andWhere('c.annee = :annee')
+                ->andWhere('c.ristourne = :montant')
+                ->setParameters([
+                    'annee' => $annee,
+                    'region' => $region,
+                    'montant' => $montant
+                ])
+            ;
+        }
+        return $q->getQuery()->getSingleScalarResult();
     }
 }

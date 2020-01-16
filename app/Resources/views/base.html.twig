@@ -120,7 +120,7 @@
                     </ul>
                 </li>
             {% endif %}
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_FINANCE') %}
                 <li class="menu-item ">
                     <a href="#" class="open-dropdown menu-link">
                     <span class="menu-label">
@@ -140,6 +140,22 @@
                                 <span class="menu-name">Inscrits</span>
                             </span>
                                 <span class="menu-icon"><i class="icon-placeholder fa fa-user-friends"></i></span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href='{{ absolute_url(path('finance_ristourne')) }}' class=' menu-link'>
+                            <span class="menu-label">
+                                <span class="menu-name">Ristournes</span>
+                            </span>
+                                <span class="menu-icon"><i class="icon-placeholder fas fa-money"></i></span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href='{{ absolute_url(path('finance_extraction')) }}' class=' menu-link'>
+                            <span class="menu-label">
+                                <span class="menu-name">Extraction</span>
+                            </span>
+                                <span class="menu-icon"><i class="icon-placeholder fas fa-file-export"></i></span>
                             </a>
                         </li>
                     </ul>
