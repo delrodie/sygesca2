@@ -123,4 +123,5 @@ class CotisationRepository extends \Doctrine\ORM\EntityRepository
         }
         return $q->getQuery()->getSingleScalarResult();
     }
+
 }

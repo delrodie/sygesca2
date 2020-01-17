@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Scoutdeleteds list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Matricule</th>
+                <th>Nom</th>
+                <th>Prenoms</th>
+                <th>Datenaiss</th>
+                <th>Lieunaiss</th>
+                <th>Sexe</th>
+                <th>Branche</th>
+                <th>Fonction</th>
+                <th>Contact</th>
+                <th>Contactparent</th>
+                <th>Email</th>
+                <th>Carte</th>
+                <th>Cotisation</th>
+                <th>Urgence</th>
+                <th>Slug</th>
+                <th>Publiele</th>
+                <th>Supprimele</th>
+                <th>Statut</th>
+                <th>Groupe</th>
+                <th>District</th>
+                <th>Region</th>
+                <th>Montant</th>
+                <th>Montantsansfrais</th>
+                <th>Ristourne</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for scoutDeleted in scoutDeleteds %}
+            <tr>
+                <td><a href="{{ path('scoutdeleted_show', { 'id': scoutDeleted.id }) }}">{{ scoutDeleted.id }}</a></td>
+                <td>{{ scoutDeleted.matricule }}</td>
+                <td>{{ scoutDeleted.nom }}</td>
+                <td>{{ scoutDeleted.prenoms }}</td>
+                <td>{{ scoutDeleted.datenaiss }}</td>
+                <td>{{ scoutDeleted.lieunaiss }}</td>
+                <td>{{ scoutDeleted.sexe }}</td>
+                <td>{{ scoutDeleted.branche }}</td>
+                <td>{{ scoutDeleted.fonction }}</td>
+                <td>{{ scoutDeleted.contact }}</td>
+                <td>{{ scoutDeleted.contactParent }}</td>
+                <td>{{ scoutDeleted.email }}</td>
+                <td>{{ scoutDeleted.carte }}</td>
+                <td>{{ scoutDeleted.cotisation }}</td>
+                <td>{{ scoutDeleted.urgence }}</td>
+                <td>{{ scoutDeleted.slug }}</td>
+                <td>{{ scoutDeleted.publieLe }}</td>
+                <td>{{ scoutDeleted.supprimeLe }}</td>
+                <td>{{ scoutDeleted.statut }}</td>
+                <td>{{ scoutDeleted.groupe }}</td>
+                <td>{{ scoutDeleted.district }}</td>
+                <td>{{ scoutDeleted.region }}</td>
+                <td>{{ scoutDeleted.montant }}</td>
+                <td>{{ scoutDeleted.montantSansFrais }}</td>
+                <td>{{ scoutDeleted.ristourne }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('scoutdeleted_show', { 'id': scoutDeleted.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('scoutdeleted_edit', { 'id': scoutDeleted.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('scoutdeleted_new') }}">Create a new scoutDeleted</a>
+        </li>
+    </ul>
+{% endblock %}

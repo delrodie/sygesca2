@@ -428,4 +428,29 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                     ->getQuery()->getResult()
             ;
     }
+
+    /**
+     * @return array
+     */
+    public function findDoublon()
+    {
+        $q = '
+                SELECT DISTINCT s FROM AppBundle\Entity\Scout s 
+                WHERE EXISTS (
+                    SELECT sc FROM AppBundle\Entity\Scout sc 
+                    WHERE s.id <> sc.id
+                    AND s.nom = sc.nom 
+                    AND s.prenoms = sc.prenoms
+                    AND s.datenaiss = sc.datenaiss
+                    AND  s.lieunaiss = sc.lieunaiss
+                    AND s.sexe = sc.sexe
+                    AND s.contact = sc.contact
+                    AND s.urgence = sc.urgence
+                )
+        ';
+        $query = $this->getEntityManager()->createQuery($q)->execute();
+
+        return $query;
+    }
+    
 }

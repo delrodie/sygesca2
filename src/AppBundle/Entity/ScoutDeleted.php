@@ -2,16 +2,15 @@
 
 namespace AppBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Scout
+ * ScoutDeleted
  *
- * @ORM\Table(name="scout")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ScoutRepository")
+ * @ORM\Table(name="scout_deleted")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ScoutDeletedRepository")
  */
-class Scout
+class ScoutDeleted
 {
     /**
      * @var int
@@ -123,59 +122,72 @@ class Scout
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"nom","prenoms","matricule"})
      * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
 
     /**
-     * @var string
-     *
-     * @Gedmo\Blameable(on="create")
-     * @ORM\Column(name="publie_par", type="string", length=25, nullable=true)
-     */
-    private $publiePar;
-
-    /**
-     * @var string
-     *
-     * @Gedmo\Blameable(on="update")
-     * @ORM\Column(name="modifie_par", type="string", length=25, nullable=true)
-     */
-    private $modifiePar;
-
-    /**
      * @var \DateTime
      *
-     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="publie_le", type="datetimetz", nullable=true)
      */
     private $publieLe;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="modifie_le", type="datetimetz", nullable=true)
+     * @ORM\Column(name="supprime_le", type="string", nullable=true)
      */
-    private $modifieLe;
+    private $supprimeLe;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Statut")
-     * @ORM\JoinColumn(name="statut_id", referencedColumnName="id")
+     * @var string
+     *
+     * @ORM\Column(name="statut", type="string", nullable=true)
      */
     private $statut;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Groupe", inversedBy="scouts")
-     * @ORM\JoinColumn(name="groupe_id", referencedColumnName="id")
+     * @var string
+     *
+     * @ORM\Column(name="groupe", type="string", nullable=true)
      */
     private $groupe;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Cotisation", mappedBy="scout", cascade={"remove"})
+     * @var string
+     *
+     * @ORM\Column(name="district", type="string", nullable=true)
      */
-    private $cotisations;
+    private $district;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="region", type="string", nullable=true)
+     */
+    private $region;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="montant", type="integer", nullable=true)
+     */
+    private $montant;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="montant_sans_frais", type="integer", nullable=true)
+     */
+    private $montantSansFrais;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="ristourne", type="integer", nullable=true)
+     */
+    private $ristourne;
 
 
     /**
@@ -193,7 +205,7 @@ class Scout
      *
      * @param string $matricule
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setMatricule($matricule)
     {
@@ -217,7 +229,7 @@ class Scout
      *
      * @param string $nom
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setNom($nom)
     {
@@ -241,7 +253,7 @@ class Scout
      *
      * @param string $prenoms
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setPrenoms($prenoms)
     {
@@ -265,7 +277,7 @@ class Scout
      *
      * @param string $datenaiss
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setDatenaiss($datenaiss)
     {
@@ -289,7 +301,7 @@ class Scout
      *
      * @param string $lieunaiss
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setLieunaiss($lieunaiss)
     {
@@ -313,7 +325,7 @@ class Scout
      *
      * @param string $sexe
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setSexe($sexe)
     {
@@ -337,7 +349,7 @@ class Scout
      *
      * @param string $branche
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setBranche($branche)
     {
@@ -361,7 +373,7 @@ class Scout
      *
      * @param string $fonction
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setFonction($fonction)
     {
@@ -385,7 +397,7 @@ class Scout
      *
      * @param string $contact
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setContact($contact)
     {
@@ -409,7 +421,7 @@ class Scout
      *
      * @param string $contactParent
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setContactParent($contactParent)
     {
@@ -433,7 +445,7 @@ class Scout
      *
      * @param string $email
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setEmail($email)
     {
@@ -453,11 +465,35 @@ class Scout
     }
 
     /**
+     * Set carte
+     *
+     * @param string $carte
+     *
+     * @return ScoutDeleted
+     */
+    public function setCarte($carte)
+    {
+        $this->carte = $carte;
+
+        return $this;
+    }
+
+    /**
+     * Get carte
+     *
+     * @return string
+     */
+    public function getCarte()
+    {
+        return $this->carte;
+    }
+
+    /**
      * Set cotisation
      *
      * @param string $cotisation
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setCotisation($cotisation)
     {
@@ -477,11 +513,35 @@ class Scout
     }
 
     /**
+     * Set urgence
+     *
+     * @param string $urgence
+     *
+     * @return ScoutDeleted
+     */
+    public function setUrgence($urgence)
+    {
+        $this->urgence = $urgence;
+
+        return $this;
+    }
+
+    /**
+     * Get urgence
+     *
+     * @return string
+     */
+    public function getUrgence()
+    {
+        return $this->urgence;
+    }
+
+    /**
      * Set slug
      *
      * @param string $slug
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setSlug($slug)
     {
@@ -501,59 +561,11 @@ class Scout
     }
 
     /**
-     * Set publiePar
-     *
-     * @param string $publiePar
-     *
-     * @return Scout
-     */
-    public function setPubliePar($publiePar)
-    {
-        $this->publiePar = $publiePar;
-
-        return $this;
-    }
-
-    /**
-     * Get publiePar
-     *
-     * @return string
-     */
-    public function getPubliePar()
-    {
-        return $this->publiePar;
-    }
-
-    /**
-     * Set modifiePar
-     *
-     * @param string $modifiePar
-     *
-     * @return Scout
-     */
-    public function setModifiePar($modifiePar)
-    {
-        $this->modifiePar = $modifiePar;
-
-        return $this;
-    }
-
-    /**
-     * Get modifiePar
-     *
-     * @return string
-     */
-    public function getModifiePar()
-    {
-        return $this->modifiePar;
-    }
-
-    /**
      * Set publieLe
      *
      * @param \DateTime $publieLe
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
     public function setPublieLe($publieLe)
     {
@@ -573,37 +585,37 @@ class Scout
     }
 
     /**
-     * Set modifieLe
+     * Set supprimeLe
      *
-     * @param \DateTime $modifieLe
+     * @param \DateTime $supprimeLe
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
-    public function setModifieLe($modifieLe)
+    public function setSupprimeLe($supprimeLe)
     {
-        $this->modifieLe = $modifieLe;
+        $this->supprimeLe = $supprimeLe;
 
         return $this;
     }
 
     /**
-     * Get modifieLe
+     * Get supprimeLe
      *
      * @return \DateTime
      */
-    public function getModifieLe()
+    public function getSupprimeLe()
     {
-        return $this->modifieLe;
+        return $this->supprimeLe;
     }
 
     /**
      * Set statut
      *
-     * @param \AppBundle\Entity\Statut $statut
+     * @param string $statut
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
-    public function setStatut(\AppBundle\Entity\Statut $statut = null)
+    public function setStatut($statut)
     {
         $this->statut = $statut;
 
@@ -613,7 +625,7 @@ class Scout
     /**
      * Get statut
      *
-     * @return \AppBundle\Entity\Statut
+     * @return string
      */
     public function getStatut()
     {
@@ -623,11 +635,11 @@ class Scout
     /**
      * Set groupe
      *
-     * @param \AppBundle\Entity\Groupe $groupe
+     * @param string $groupe
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
-    public function setGroupe(\AppBundle\Entity\Groupe $groupe = null)
+    public function setGroupe($groupe)
     {
         $this->groupe = $groupe;
 
@@ -637,7 +649,7 @@ class Scout
     /**
      * Get groupe
      *
-     * @return \AppBundle\Entity\Groupe
+     * @return string
      */
     public function getGroupe()
     {
@@ -645,91 +657,122 @@ class Scout
     }
 
     /**
-     * Set carte
+     * Set district
      *
-     * @param string $carte
+     * @param string $district
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
-    public function setCarte($carte)
+    public function setDistrict($district)
     {
-        $this->carte = $carte;
+        $this->district = $district;
 
         return $this;
     }
 
     /**
-     * Get carte
+     * Get district
      *
      * @return string
      */
-    public function getCarte()
+    public function getDistrict()
     {
-        return $this->carte;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->cotisations = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->district;
     }
 
     /**
-     * Add cotisation
+     * Set region
      *
-     * @param \AppBundle\Entity\Cotisation $cotisation
+     * @param string $region
      *
-     * @return Scout
+     * @return ScoutDeleted
      */
-    public function addCotisation(\AppBundle\Entity\Cotisation $cotisation)
+    public function setRegion($region)
     {
-        $this->cotisations[] = $cotisation;
+        $this->region = $region;
 
         return $this;
     }
 
     /**
-     * Remove cotisation
-     *
-     * @param \AppBundle\Entity\Cotisation $cotisation
-     */
-    public function removeCotisation(\AppBundle\Entity\Cotisation $cotisation)
-    {
-        $this->cotisations->removeElement($cotisation);
-    }
-
-    /**
-     * Get cotisations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCotisations()
-    {
-        return $this->cotisations;
-    }
-
-    /**
-     * Set urgence
-     *
-     * @param string $urgence
-     *
-     * @return Scout
-     */
-    public function setUrgence($urgence)
-    {
-        $this->urgence = $urgence;
-
-        return $this;
-    }
-
-    /**
-     * Get urgence
+     * Get region
      *
      * @return string
      */
-    public function getUrgence()
+    public function getRegion()
     {
-        return $this->urgence;
+        return $this->region;
+    }
+
+    /**
+     * Set montant
+     *
+     * @param integer $montant
+     *
+     * @return ScoutDeleted
+     */
+    public function setMontant($montant)
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    /**
+     * Get montant
+     *
+     * @return integer
+     */
+    public function getMontant()
+    {
+        return $this->montant;
+    }
+
+    /**
+     * Set montantSansFrais
+     *
+     * @param integer $montantSansFrais
+     *
+     * @return ScoutDeleted
+     */
+    public function setMontantSansFrais($montantSansFrais)
+    {
+        $this->montantSansFrais = $montantSansFrais;
+
+        return $this;
+    }
+
+    /**
+     * Get montantSansFrais
+     *
+     * @return integer
+     */
+    public function getMontantSansFrais()
+    {
+        return $this->montantSansFrais;
+    }
+
+    /**
+     * Set ristourne
+     *
+     * @param integer $ristourne
+     *
+     * @return ScoutDeleted
+     */
+    public function setRistourne($ristourne)
+    {
+        $this->ristourne = $ristourne;
+
+        return $this;
+    }
+
+    /**
+     * Get ristourne
+     *
+     * @return integer
+     */
+    public function getRistourne()
+    {
+        return $this->ristourne;
     }
 }

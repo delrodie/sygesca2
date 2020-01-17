@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Scoutdeleted</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ scoutDeleted.id }}</td>
+            </tr>
+            <tr>
+                <th>Matricule</th>
+                <td>{{ scoutDeleted.matricule }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ scoutDeleted.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenoms</th>
+                <td>{{ scoutDeleted.prenoms }}</td>
+            </tr>
+            <tr>
+                <th>Datenaiss</th>
+                <td>{{ scoutDeleted.datenaiss }}</td>
+            </tr>
+            <tr>
+                <th>Lieunaiss</th>
+                <td>{{ scoutDeleted.lieunaiss }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ scoutDeleted.sexe }}</td>
+            </tr>
+            <tr>
+                <th>Branche</th>
+                <td>{{ scoutDeleted.branche }}</td>
+            </tr>
+            <tr>
+                <th>Fonction</th>
+                <td>{{ scoutDeleted.fonction }}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{ scoutDeleted.contact }}</td>
+            </tr>
+            <tr>
+                <th>Contactparent</th>
+                <td>{{ scoutDeleted.contactParent }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ scoutDeleted.email }}</td>
+            </tr>
+            <tr>
+                <th>Carte</th>
+                <td>{{ scoutDeleted.carte }}</td>
+            </tr>
+            <tr>
+                <th>Cotisation</th>
+                <td>{{ scoutDeleted.cotisation }}</td>
+            </tr>
+            <tr>
+                <th>Urgence</th>
+                <td>{{ scoutDeleted.urgence }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ scoutDeleted.slug }}</td>
+            </tr>
+            <tr>
+                <th>Publiele</th>
+                <td>{{ scoutDeleted.publieLe }}</td>
+            </tr>
+            <tr>
+                <th>Supprimele</th>
+                <td>{{ scoutDeleted.supprimeLe }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ scoutDeleted.statut }}</td>
+            </tr>
+            <tr>
+                <th>Groupe</th>
+                <td>{{ scoutDeleted.groupe }}</td>
+            </tr>
+            <tr>
+                <th>District</th>
+                <td>{{ scoutDeleted.district }}</td>
+            </tr>
+            <tr>
+                <th>Region</th>
+                <td>{{ scoutDeleted.region }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ scoutDeleted.montant }}</td>
+            </tr>
+            <tr>
+                <th>Montantsansfrais</th>
+                <td>{{ scoutDeleted.montantSansFrais }}</td>
+            </tr>
+            <tr>
+                <th>Ristourne</th>
+                <td>{{ scoutDeleted.ristourne }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('scoutdeleted_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('scoutdeleted_edit', { 'id': scoutDeleted.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
