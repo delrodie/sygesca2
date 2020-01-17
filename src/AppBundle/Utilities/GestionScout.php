@@ -4,6 +4,7 @@
 namespace AppBundle\Utilities;
 
 
+use AppBundle\Entity\Scout;
 use Cassandra\Date;
 use Doctrine\ORM\EntityManager;
 
@@ -125,5 +126,22 @@ class GestionScout
         }else{
             return false;
         }
+    }
+
+    /**
+     * @return bool
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function changeSexe()
+    {
+        $scouts = $this->em->getRepository("AppBundle:Scout")->findBySexe(); //dump($scouts);die();
+        foreach ($scouts as $scout){
+            if ($scout->getSexe() === 'M') $sexe = 'HOMME';
+            else $sexe = 'FEMME';
+            $scout->setSexe($sexe);
+            $this->em->flush();
+        }
+
+        return true;
     }
 }

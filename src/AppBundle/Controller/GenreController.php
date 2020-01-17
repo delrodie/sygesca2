@@ -22,6 +22,7 @@ class GenreController extends Controller
     public function indexAction(GestionScout $gestionScout)
     {
         $em = $this->getDoctrine()->getManager();
+        $gestionScout->changeSexe();
 
         $user =$this->getUser();
 

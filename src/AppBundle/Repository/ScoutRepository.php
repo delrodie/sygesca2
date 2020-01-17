@@ -452,5 +452,20 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
 
         return $query;
     }
-    
+
+    /**
+     * @return array
+     */
+    public function findBySexe()
+    {
+        return $this->createQueryBuilder('s')
+                    ->where('s.sexe = :m')
+                    ->orWhere('s.sexe = :f')
+                    ->setParameters([
+                        'm'=>'M',
+                        'f'=>'F'
+                    ])
+                    ->getQuery()->getResult()
+            ;
+    }
 }
