@@ -28,7 +28,9 @@
                                         <td>Regions</td>
                                         <td>Matricules</td>
                                         <td>Nom & prenoms</td>
+                                        <td>Date</td>
                                         <td>Sexe</td>
+                                        <td>Contact</td>
                                         <td>Statut</td>
                                         <td>Actions</td>
                                     </tr>
@@ -40,7 +42,9 @@
                                             <td>{{ scout.groupe.district.region.nom }}</td>
                                             <td>{{ scout.matricule }}</td>
                                             <td>{{ scout.nom }} {{ scout.prenoms }}</td>
+                                            <td>{{ scout.datenaiss|date('d-m-Y') }}</td>
                                             <td>{{ scout.sexe }}</td>
+                                            <td>{{ scout.contact }}</td>
                                             <td>{{ scout.statut.libelle }}</td>
                                             <td class="text-center">
                                                 <a href="{{ path('admin_scout_show', {'slug': scout.slug}) }}" title="Voir les détails"><i class="fa fa-eye"></i></a> |
