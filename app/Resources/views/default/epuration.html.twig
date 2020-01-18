@@ -43,6 +43,7 @@
                                             <td>{{ scout.sexe }}</td>
                                             <td>{{ scout.statut.libelle }}</td>
                                             <td class="text-center">
+                                                <a href="{{ path('admin_scout_show', {'slug': scout.slug}) }}" title="Voir les détails"><i class="fa fa-eye"></i></a> |
                                                 <a href="{{ path('epuration_delete', {'id': scout.id}) }}" title="Suppression"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>

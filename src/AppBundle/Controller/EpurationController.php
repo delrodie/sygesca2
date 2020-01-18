@@ -20,7 +20,7 @@ class EpurationController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $scouts = $em->getRepository("AppBundle:Scout")->findDoublon();
+        $scouts = $em->getRepository("AppBundle:Scout")->findExistMore();
 
         return $this->render('default/epuration.html.twig', [
             'scouts' => $scouts,
@@ -33,8 +33,8 @@ class EpurationController extends Controller
      */
     public function deleteDoublonAction(Scout $scout, GestionEpuration $gestionEpuration)
     {
-        $em = $this->getDoctrine()->getManager();
-        $scouts = $em->getRepository("AppBundle:Scout")->findDoublon(); //dump($scout);die();
+        //$em = $this->getDoctrine()->getManager();
+        //$scouts = $em->getRepository("AppBundle:Scout")->findDoublon(); //dump($scout);die();
 
         if ($gestionEpuration->deleteScout($scout->getId())){
             $this->addFlash('notice', "Doublon supprimé avec succès!");

@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\DBAL\Connection;
+
 /**
  * ScoutRepository
  *
@@ -434,8 +436,9 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
      */
     public function findDoublon()
     {
+        $conn = $this->getEntityManager()->getConnection();
         $q = '
-                SELECT DISTINCT s FROM AppBundle\Entity\Scout s 
+                SELECT s FROM AppBundle\Entity\Scout s 
                 WHERE EXISTS (
                     SELECT sc FROM AppBundle\Entity\Scout sc 
                     WHERE s.id <> sc.id
@@ -448,8 +451,50 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                     AND s.urgence = sc.urgence
                 )
         ';
-        $query = $this->getEntityManager()->createQuery($q)->execute();
+        $query = $this->getEntityManager()->createQuery($q)->getResult();
+        //$query = $em->createQuery($q)->getResult();
+        //$query = $this->getEntityManager()->getConnection()->prepare($q)->execute();
 
+        //$query = $conn->prepare($q)->execute(); dump($query->fetchAll());die();
+
+        return $query;
+    }
+
+    /**
+     * @return array
+     */
+    public function findDoublon2()
+    {
+        return $this->createQueryBuilder('s')
+                    ->where('
+                        EXISTS (SELECT sc FROM AppBundle\Entity\Scout sc 
+                                WHERE s.id <> sc.id
+                                AND s.nom = sc.nom 
+                                AND s.prenoms = sc.prenoms
+                                AND s.datenaiss = sc.datenaiss
+                                AND  s.lieunaiss = sc.lieunaiss
+                                AND s.sexe = sc.sexe
+                                AND s.contact = sc.contact
+                                AND s.urgence = sc.urgence)
+                    ')
+                    ->getQuery()->getResult()
+            ;
+    }
+
+    public function findExistMore()
+    {
+        $qb = "
+                SELECT s
+                FROM AppBundle\Entity\Scout s 
+                WHERE EXISTS (
+                    SELECT sc FROM AppBundle\Entity\Scout sc 
+                    WHERE s.id <> sc.id
+                    AND s.nom = sc.nom
+                    AND s.prenoms = sc.prenoms
+                    )
+        ";
+        // AND CONCAT(s.nom,' ',s.prenoms,' ',s.datenaiss,' ',s.lieunaiss,' ',s.sexe,' ',s.contact,' ',s.urgence) = CONCAT(sc.nom,' ',sc.prenoms,' ',sc.datenaiss,' ',sc.lieunaiss,' ',sc.sexe,' ',sc.contact,' ',sc.urgence)
+        $query = $this->getEntityManager()->createQuery($qb)->getResult();
         return $query;
     }
 
