@@ -492,7 +492,6 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                     AND s.nom = sc.nom
                     AND s.prenoms = sc.prenoms
                     AND s.datenaiss = sc.datenaiss
-                    AND s.lieunaiss = sc.lieunaiss
                     )
         ";
         // AND CONCAT(s.nom,' ',s.prenoms,' ',s.datenaiss,' ',s.lieunaiss,' ',s.sexe,' ',s.contact,' ',s.urgence) = CONCAT(sc.nom,' ',sc.prenoms,' ',sc.datenaiss,' ',sc.lieunaiss,' ',sc.sexe,' ',sc.contact,' ',sc.urgence)
