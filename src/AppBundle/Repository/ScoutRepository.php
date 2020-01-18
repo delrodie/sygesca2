@@ -486,9 +486,13 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                 return $this->createQueryBuilder('sc')
                     ->where('sc.nom = :nom')
                     ->andWhere('sc.prenoms = :prenom')
+                    ->andWhere('sc.datenaiss = :datenaiss')
+                    ->andWhere('sc.lieunaiss = :lieu')
                     ->setParameters([
                         'nom' => $scout->getNom(),
                         'prenom' => $scout->getprenoms(),
+                        'datenaiss' => $scout->getDatenaiss(),
+                        'lieu' => $scout->getLieunaiss()
                     ])
                     ->getQuery()->getResult()
                 ;
