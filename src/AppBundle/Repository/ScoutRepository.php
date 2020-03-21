@@ -520,4 +520,22 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
                     ->getQuery()->getResult()
             ;
     }
+
+    /**
+     * Liste globale des scouts inscrits
+     *
+     * @return array
+     */
+    public function findListGlobal()
+    {
+        return $this->createQueryBuilder('s')
+            ->addSelect('g')
+            ->addSelect('d')
+            ->addSelect('r')
+            ->leftJoin('s.groupe', 'g')
+            ->leftJoin('g.district', 'd')
+            ->leftJoin('d.region', 'r')
+            ->getQuery()->getResult()
+            ;
+    }
 }

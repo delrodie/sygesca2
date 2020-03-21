@@ -21,8 +21,9 @@ class FinanceController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         if (!$gestionCotisation->generatePrice()) return $this->redirectToRoute('finance_liste');
-        $cotisations = $em->getRepository("AppBundle:Cotisation")->findBy(['annee'=>$gestionScout->cotisation()]);
-
+        //$cotisations = $em->getRepository("AppBundle:Cotisation")->findBy(['annee'=>$gestionScout->cotisation()]);
+        $cotisations = $em->getRepository("AppBundle:Cotisation")->findListGlobal($gestionScout->cotisation());
+        
         $montantTotal = $em->getRepository("AppBundle:Cotisation")->calculMontant($gestionScout->cotisation()); //dump($montantTotal);die();
 
         return $this->render("default/finance.html.twig",[
@@ -67,7 +68,7 @@ class FinanceController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         if (!$gestionCotisation->generatePrice()) return $this->redirectToRoute('finance_liste');
-        $cotisations = $em->getRepository("AppBundle:Cotisation")->findBy(['annee'=>$gestionScout->cotisation()]);
+        $cotisations = $em->getRepository("AppBundle:Cotisation")->findListGlobal($gestionScout->cotisation());
 
         return $this->render("extraction/rsitourne_globale.html.twig",[
             'cotisations' => $cotisations,

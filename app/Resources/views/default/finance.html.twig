@@ -40,8 +40,6 @@
                                     <tbody>
                                     {% set taux = 0.036 %} {% set val = 0 %}
                                     {% for cotisation in cotisations %}
-                                        {% set val = cotisation.montant * taux %}
-                                        {% set montant = cotisation.montant - val %}
                                         <tr>
                                             <td>{{ loop.index }}
                                             <td>{{ cotisation.scout.groupe.district.region.nom }}</td>

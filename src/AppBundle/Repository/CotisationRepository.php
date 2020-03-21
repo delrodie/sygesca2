@@ -124,4 +124,27 @@ class CotisationRepository extends \Doctrine\ORM\EntityRepository
         return $q->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     * Liste global des ristourne
+     * 
+     * @param $annee
+     * @return array
+     */
+    public function findListGlobal($annee)
+    {
+        return $this->createQueryBuilder('c')
+            ->addSelect('s')
+            ->addSelect('g')
+            ->addSelect('d')
+            ->addSelect('r')
+            ->leftJoin('c.scout','s')
+            ->leftJoin('s.groupe','g')
+            ->leftJoin('g.district','d')
+            ->leftJoin('d.region','r')
+            ->where('c.annee = :annee')
+            ->setParameter('annee',$annee)
+            ->getQuery()->getResult()
+            ;
+    }
+
 }

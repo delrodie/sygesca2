@@ -41,7 +41,8 @@ class ScoutController extends Controller
             }
         }
 
-        $scouts = $em->getRepository('AppBundle:Scout')->findAll();
+        //$scouts = $em->getRepository('AppBundle:Scout')->findAll();
+        $scouts = $em->getRepository('AppBundle:Scout')->findListGlobal(); //dump($scouts);die();
 
         return $this->render('scout/index.html.twig', array(
             'scouts' => $scouts,
