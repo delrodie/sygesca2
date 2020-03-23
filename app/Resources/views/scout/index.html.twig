@@ -1,2 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ parent() }} Gestion des scouts{% endblock %}
+{% block body %}
+    <h1>tableau de la liste des scoutes</h1>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src='{{ absolute_url(asset('ressources/assets/bundles/ba78fede76f682cd388ed2abbfd1e1568e76f8a4.js')) }}'></script>
+{% endblock %}
