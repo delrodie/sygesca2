@@ -35,8 +35,8 @@
                                     <tbody>
                                     {% for scout in scouts %}
                                         <tr>
-                                            <td>{{ loop.index }}
-                                            <td></td>
+                                            <td>{{ loop.index }}</td>
+                                            <td>{{ scout.groupe.district.region.nom }}</td>
                                             <td>{{ scout.matricule }}</td>
                                             <td>{{ scout.nom }} {{ scout.prenoms }}</td>
                                             <td>{{ scout.sexe }}</td>
