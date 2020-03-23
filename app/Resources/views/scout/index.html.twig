@@ -24,18 +24,20 @@
                                     <thead>
                                     <tr>
                                         <td>ID</td>
-                                        <td>Regions</td>
-                                        <td>Matricules</td>
-                                        <td>Nom & prenoms</td>
-                                        <td>Sexe</td>
-                                        <td>Statut</td>
+                                        <td>Code</td>
+                                        <td>Nom</td>
                                         <td>Actions</td>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for scout in scouts %}
+                                    {% for region in regions %}
                                         <tr>
-                                            <td colspan="7">{{ loop.index }}</td>
+                                            <td>{{ loop.index }}
+                                            <td>{{ region.code }}</td>
+                                            <td>{{ region.nom }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ path('admin_region_edit', {'slug': region.slug}) }}" title="Modifier la region"><i class="fa fa-edit"></i></a>
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
