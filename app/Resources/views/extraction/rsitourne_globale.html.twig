@@ -35,7 +35,6 @@
 										<th>NOM & PRENOMS</th>
 										<th>DATE DE NAISSANCE</th>
 										<th>SEXE</th>
-										<th>STATUT</th>
 										<th>FONCTION</th>
 										<th>MONTANT</th>
 										<th>RISTOURNE</th>
@@ -53,7 +52,6 @@
 											<td>{{ cotisation.scout.nom }} {{ cotisation.scout.prenoms }}</td>
 											<td>{{ cotisation.scout.datenaiss|date('d-m-Y') }}</td>
 											<td>{{ cotisation.scout.sexe }}</td>
-											<td>{{ cotisation.scout.statut.libelle }}</td>
 											<td>{{ cotisation.scout.fonction|title }}</td>
 											<td>{{ cotisation.montantSansFrais|number_format }}</td>
 											<td>{{ cotisation.ristourne }}</td>
