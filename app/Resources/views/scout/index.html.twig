@@ -24,16 +24,18 @@
                                     <thead>
                                     <tr>
                                         <td>ID</td>
-                                        <td>Code</td>
-                                        <td>Nom</td>
+                                        <td>Regions</td>
+                                        <td>Matricules</td>
+                                        <td>Nom & prenoms</td>
                                         <td>Actions</td>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {% for scout in scouts %}
                                         <tr>
-                                            <td>{{ loop.index }}
+                                            <td>{{ loop.index }}</td>
                                             <td>{{ scout.groupe.district.region.nom }}</td>
+                                            <td>{{ scout.matricule }}</td>
                                             <td>{{ scout.nom }} {{ scout.prenoms }}</td>
                                             <td class="text-center">
                                                 <a href="{{ path('admin_scout_edit', {'slug': scout.slug}) }}" title="Modifier la region"><i class="fa fa-edit"></i></a>
