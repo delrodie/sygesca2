@@ -53,7 +53,7 @@ class GestionCotisation
             $string = $this->switcFonction($cotisation->getFonction());
             if ($string === 'CONSEIL NATIONAL DES AINES') $string = 'AINES';
             $fonction = $this->em->getRepository("AppBundle:Fonctions")->findOneBy(['libelle'=>$string]);
-
+            if (!$fonction)dump($cotisation);die();
             $montant = $fonction->getMontant();
 
             $ristourne = $fonction->getRistourne();
