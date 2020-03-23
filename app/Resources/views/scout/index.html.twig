@@ -33,8 +33,8 @@
                                     {% for scout in scouts %}
                                         <tr>
                                             <td>{{ loop.index }}
-                                            <td>{{ scout.nom }}</td>
-                                            <td>{{ scout.prenoms }}</td>
+                                            <td>{{ scout.groupe.district.region.nom }}</td>
+                                            <td>{{ scout.nom }} {{ scout.prenoms }}</td>
                                             <td class="text-center">
                                                 <a href="{{ path('admin_scout_edit', {'slug': scout.slug}) }}" title="Modifier la region"><i class="fa fa-edit"></i></a>
                                             </td>
