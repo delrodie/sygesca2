@@ -24,19 +24,26 @@
                                     <thead>
                                     <tr>
                                         <td>ID</td>
-                                        <td>Code</td>
-                                        <td>Nom</td>
+                                        <td>Regions</td>
+                                        <td>Matricules</td>
+                                        <td>Nom & prenoms</td>
+                                        <td>Sexe</td>
+                                        <td>Statut</td>
                                         <td>Actions</td>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for region in regions %}
+                                    {% for scout in scouts %}
                                         <tr>
-                                            <td>{{ loop.index }}
-                                            <td>{{ region.code }}</td>
-                                            <td>{{ region.nom }}</td>
+                                            <td>{{ loop.index }}</td>
+                                            <td>{{ scout.groupe.district.region.nom }}</td>
+                                            <td>{{ scout.matricule }}</td>
+                                            <td>{{ scout.nom }} {{ scout.prenoms }}</td>
+                                            <td>{{ scout.sexe }}</td>
+                                            <td>{{ scout.statut.libelle }}</td>
                                             <td class="text-center">
-                                                <a href="{{ path('admin_region_edit', {'slug': region.slug}) }}" title="Modifier la region"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ path('admin_scout_show', {'slug': scout.slug}) }}" title="Voir les détails"><i class="fa fa-eye"></i></a> |
+                                                <a href="{{ path('admin_scout_edit', {'slug': scout.slug}) }}" title="Modifier la scout"><i class="fa fa-edit"></i></a>
                                             </td>
                                         </tr>
                                     {% endfor %}
