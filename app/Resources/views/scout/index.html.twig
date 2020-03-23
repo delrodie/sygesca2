@@ -28,7 +28,6 @@
                                         <td>Matricules</td>
                                         <td>Nom & prenoms</td>
                                         <td>Sexe</td>
-                                        <td>Statut</td>
                                         <td>Actions</td>
                                     </tr>
                                     </thead>
@@ -40,7 +39,6 @@
                                             <td>{{ scout.matricule }}</td>
                                             <td>{{ scout.nom }} {{ scout.prenoms }}</td>
                                             <td>{{ scout.sexe }}</td>
-                                            <td>{{ scout.statut.libelle }}</td>
                                             <td class="text-center">
                                                 <a href="{{ path('admin_scout_edit', {'slug': scout.slug}) }}" title="Modifier la region"><i class="fa fa-edit"></i></a>
                                             </td>
