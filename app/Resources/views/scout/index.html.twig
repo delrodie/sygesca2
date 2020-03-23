@@ -35,16 +35,7 @@
                                     <tbody>
                                     {% for scout in scouts %}
                                         <tr>
-                                            <td>{{ loop.index }}</td>
-                                            <td>{{ scout.groupe.district.region.nom }}</td>
-                                            <td>{{ scout.matricule }}</td>
-                                            <td>{{ scout.nom }} {{ scout.prenoms }}</td>
-                                            <td>{{ scout.sexe }}</td>
-                                            <td>{{ scout.statut.libelle }}</td>
-                                            <td class="text-center">
-                                                <a href="{{ path('admin_scout_show', {'slug': scout.slug}) }}" title="Voir les détails"><i class="fa fa-eye"></i></a> |
-                                                <a href="{{ path('admin_scout_edit', {'slug': scout.slug}) }}" title="Modifier la scout"><i class="fa fa-edit"></i></a>
-                                            </td>
+                                            <td colspan="7">{{ loop.index }}</td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
