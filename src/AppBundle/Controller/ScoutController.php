@@ -47,7 +47,6 @@ class ScoutController extends Controller
 
         return $this->render('scout/index.html.twig', array(
             'scouts' => $scouts,
-            'regions' => $em->getRepository('AppBundle:Region')->findAll(),
         ));
     }
 

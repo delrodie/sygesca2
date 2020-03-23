@@ -532,9 +532,11 @@ class ScoutRepository extends \Doctrine\ORM\EntityRepository
             ->addSelect('g')
             ->addSelect('d')
             ->addSelect('r')
+            ->addSelect('st')
             ->leftJoin('s.groupe', 'g')
             ->leftJoin('g.district', 'd')
             ->leftJoin('d.region', 'r')
+            ->leftJoin('s.statut','st')
             ->getQuery()->getResult()
             ;
     }
